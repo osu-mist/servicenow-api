@@ -19,7 +19,7 @@ security:
   - OAuth2:
       - full
 paths:
-  /common-matching:
+  /servicenow/common-matching:
     get:
       summary: Get common matching routine results
       tags:
