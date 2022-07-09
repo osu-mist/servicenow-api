@@ -1,6 +1,6 @@
-# ServiceNow API ![version](https://img.shields.io/badge/version-v2-blue.svg) [![openapi](https://img.shields.io/badge/openapi-3-green.svg)](./openapi.yaml) ![node](https://img.shields.io/badge/node-10.17-brightgreen.svg) ![npm](https://img.shields.io/badge/npm-6.11.1-orange.svg)
+# Express API Skeleton ![version](https://img.shields.io/badge/version-v2-blue.svg) [![openapi](https://img.shields.io/badge/openapi-3-green.svg)](./openapi.yaml) ![node](https://img.shields.io/badge/node-10.17-brightgreen.svg) ![npm](https://img.shields.io/badge/npm-6.11.1-orange.svg)
 
-ServiceNow API. API definition is contained in the [OpenAPI specification](./openapi.yaml).
+Skeleton for Express APIs. API definition is contained in the [OpenAPI specification](./openapi.yaml).
 
 ## Getting Started
 
