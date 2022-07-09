@@ -11,7 +11,6 @@ const get = async (req, res) => {
   try {
     const rawCommonMatching = await getCommonMatching(req.query);
     // const result = serializePets(rawPets, req);
-    console.log(rawCommonMatching);
     return res.send(rawCommonMatching);
   } catch (err) {
     return errorHandler(res, err);
