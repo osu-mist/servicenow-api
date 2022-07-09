@@ -1,14 +1,14 @@
 {
-  "name": "express-api-skeleton",
+  "name": "servicenow-api",
   "version": "1.0.0",
-  "description": "Skeleton for Express APIs.",
-  "homepage": "https://github.com/osu-mist/express-api-skeleton#readme",
+  "description": "ServiceNow APIs",
+  "homepage": "https://github.com/osu-mist/servicenow-api#readme",
   "bugs": {
-    "url": "https://github.com/osu-mist/express-api-skeleton/issues"
+    "url": "https://github.com/osu-mist/servicenow-api/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/osu-mist/express-api-skeleton.git"
+    "url": "git+https://github.com/osu-mist/servicenow-api.git"
   },
   "license": "AGPL-3.0",
   "author": "osu-mist",
