@@ -46,7 +46,7 @@ paths:
           schema:
             type: string
         - in: query
-          name: filter[streetName1]
+          name: filter[streetLine1]
           description: First line of the address to match
           required: false
           schema:

@@ -41,9 +41,8 @@ const getCommonMatching = async (query) => {
   const connection = await getConnection();
   try {
     const parsedQuery = parseQuery(query);
-    await connection.execute(contrib.getCommonMatching(parsedQuery));
+    await connection.execute(contrib.getCommonMatching(parsedQuery), parsedQuery);
     const lines = await getLine(connection, []);
-    console.log(lines);
     return lines;
   } finally {
     connection.close();

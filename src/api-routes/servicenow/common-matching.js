@@ -9,8 +9,8 @@ import { getCommonMatching } from '../../db/oracledb/servicenow-dao';
  */
 const get = async (req, res) => {
   try {
-    const rawCommonMatching = await getCommonMatching(req.query);
     // const result = serializePets(rawPets, req);
+    const rawCommonMatching = await getCommonMatching(req.query);
     return res.send(rawCommonMatching);
   } catch (err) {
     return errorHandler(res, err);
