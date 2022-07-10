@@ -1,6 +1,8 @@
-import { errorHandler } from 'errors/errors';
+import _ from 'lodash';
+
+import { errorBuilder, errorHandler } from 'errors/errors';
 import { getCommonMatching } from '../../db/oracledb/servicenow-dao';
-// import { serializeCommonMatching } from '../serializers/common-matching-serializer';
+import { serializeCommonMatching } from '../../serializers/common-matching-serializer';
 
 /**
  * Get common matching results
@@ -9,9 +11,17 @@ import { getCommonMatching } from '../../db/oracledb/servicenow-dao';
  */
 const get = async (req, res) => {
   try {
-    // const result = serializePets(rawPets, req);
-    const rawCommonMatching = await getCommonMatching(req.query);
-    return res.send(rawCommonMatching);
+    const lines = await getCommonMatching(req.query);
+    if (lines.length >= 1) {
+      const matchingInd = _.split(lines[0], '§')[0];
+      if (matchingInd === 'S') {
+        return errorBuilder(res, '400', [
+          'Request suspended due to multiple possible matches',
+        ]);
+      }
+    }
+    const result = serializeCommonMatching(lines, req);
+    return res.send(result);
   } catch (err) {
     return errorHandler(res, err);
   }
