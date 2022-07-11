@@ -185,6 +185,13 @@ components:
               description: Matched OSU ID if any
               pattern: '^\d{9}$'
               example: '987654321'
+            matchingInd:
+              type: string
+              description: |
+                Matching indicator.
+                M - Match, N - No Match, S - Suspended because multiple matches.
+              enum: [M, N, S]
+              example: M
     CommonMatchingSetResult:
       properties:
         links:
