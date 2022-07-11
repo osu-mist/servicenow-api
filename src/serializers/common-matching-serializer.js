@@ -23,10 +23,18 @@ const serializeCommonMatching = (rawRow, req) => {
   const rawArray = _.split(rawRow, '§');
 
   // 'N': common matching request not matched
-  const rawCommonMatching = rawArray[0] !== 'N' ? [{
-    id: rawArray[1],
+  // 'S': common matching request suspended since too many possible matches
+  const fakeIdDict = {
+    N: '000000',
+    S: '000001',
+  };
+  const rawCommonMatching = {
+    id: _.has(fakeIdDict, rawArray[0])
+      ? fakeIdDict[rawArray[0]]
+      : rawArray[1],
+    matchingInd: rawArray[0],
     osuId: rawArray[2],
-  }] : [];
+  };
 
   const topLevelSelfLink = paramsLink(commonMatchingResourceUrl, query);
   const serializerArgs = {
