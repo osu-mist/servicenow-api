@@ -33,7 +33,7 @@ const serializeCommonMatching = (rawRow, req) => {
       ? fakeIdDict[rawArray[0]]
       : rawArray[1],
     matchingInd: rawArray[0],
-    osuId: rawArray[2],
+    osuId: rawArray[2] || null,
   };
 
   const topLevelSelfLink = paramsLink(commonMatchingResourceUrl, query);
