@@ -249,10 +249,115 @@ components:
           $ref: '#/components/schemas/SelfLink'
         attributes:
           properties:
-            code:
+            pidm:
               type: string
-              description: An application-specific error code
+              description: Internal ID of an employee
               example: '1234'
+            lastName:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            middleName:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            firsName:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            ssn:
+              type: string
+              description: Internal ID of an employee
+              example: '123456789'
+            birthDate:
+              type: string
+              format: date
+              description: The date this address record was last modified.
+              example: '1970-01-01'
+            sex:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+              enum: [M, F, N]
+            citizenship:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            legalName:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            emails:
+              type: object
+              properties:
+                employeeEmail:
+                  type: string
+                  format: email
+                  description: Internal ID of an employee
+                  example: '1234@oregonstate.edu'
+                onidEmail:
+                  type: string
+                  format: email
+                  description: Internal ID of an employee
+                  example: '1234@oregonstate.edu'
+            address:
+              type: object
+              properties:
+                streetLine1:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
+                streetLine2:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
+                city:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
+                stateCode:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
+                nationCode:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
+                zip:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
+            telephone:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            status:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            ecls:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            positionNumber:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            jobTitle:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            timesheetOrganization:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
+                description:
+                  type: string
+                  description: Internal ID of an employee
+                  example: '1234'
     EmployeeResult:
       type: object
       properties:
