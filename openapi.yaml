@@ -126,7 +126,38 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/employees/{osuId}:
+    get:
+      summary: Get employee by ID
+      tags:
+        - employees
+      description: Get employee by ID
+      operationId: getEmployeeById
+      parameters:
+        - $ref: '#/components/parameters/osuId'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
 components:
+  parameters:
+    osuId:
+      name: osuId
+      in: path
+      required: true
+      description: OSU ID of a person
+      schema:
+        type: string
+        pattern: ^\d{9}$
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -161,6 +192,12 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResult'
   schemas:
+    CommonMatchingType:
+      type: string
+      enum: [common-matching]
+    EmployeeType:
+      type: string
+      enum: [employee]
     SelfLink:
       properties:
         self:
@@ -173,9 +210,7 @@ components:
           type: string
           description: A unique ID of common matching result
         type:
-          type: string
-          enum:
-            - common-matching
+          $ref: '#/components/schemas/CommonMatchingType'
         links:
           $ref: '#/components/schemas/SelfLink'
         attributes:
@@ -201,6 +236,30 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CommonMatchingResource'
+    EmployeeResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OSU ID of a employee
+          pattern: ^\d{9}$
+        type:
+          $ref: '#/components/schemas/EmployeeType'
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        attributes:
+          properties:
+            code:
+              type: string
+              description: An application-specific error code
+              example: '1234'
+    EmployeeResult:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        data:
+          $ref: '#/components/schemas/EmployeeResource'
     ErrorObject:
       properties:
         status:
