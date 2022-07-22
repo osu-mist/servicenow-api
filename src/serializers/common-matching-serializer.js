@@ -8,15 +8,15 @@ import { apiBaseUrl, resourcePathLink, paramsLink } from 'utils/uri-builder';
 const commonMatchingResourceProp = openapi.components.schemas.CommonMatchingResource.properties;
 const commonMatchingResourceType = commonMatchingResourceProp.type.enum[0];
 const commonMatchingResourceKeys = _.keys(commonMatchingResourceProp.attributes.properties);
-const commonMatchingResourcePath = 'common-matching';
+const commonMatchingResourcePath = 'servicenow/common-matching';
 const commonMatchingResourceUrl = resourcePathLink(apiBaseUrl, commonMatchingResourcePath);
 
 /**
- * Serialize petResources to JSON API
+ * Serialize commonMatchingResources to JSON API
  *
  * @param {object[]} rawRow Raw data row from data source
  * @param {object} req Express request object
- * @returns {object} Serialized petResources object
+ * @returns {object} Serialized commonMatchingResources object
  */
 const serializeCommonMatching = (rawRow, req) => {
   const { query } = req;
