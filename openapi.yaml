@@ -255,19 +255,19 @@ components:
               example: '1234'
             lastName:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Last name of an employee
+              example: Doe
             middleName:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Middle name of an employee
+              example: Jackson
             firsName:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: First name of an employee
+              example: Jon
             ssn:
               type: string
-              description: Internal ID of an employee
+              description: Social security number of an employee
               example: '123456789'
             birthDate:
               type: string
@@ -276,88 +276,84 @@ components:
               example: '08-JUL-70'
             sex:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Gender of an employee. M - Male, F - Female, N - Unknown.
               enum: [M, F, N]
             citizenship:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Citizenship code of an employee
+              example: C
             legalName:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Legal name of an employee
+              example: Jon Jackson Doe
             emails:
               type: object
               properties:
                 employeeEmail:
                   type: string
                   format: email
-                  description: Internal ID of an employee
-                  example: '1234@oregonstate.edu'
+                  description: Employee email of an employee
+                  example: 'john.doe@oregonstate.edu'
                 onidEmail:
                   type: string
                   format: email
-                  description: Internal ID of an employee
-                  example: '1234@oregonstate.edu'
+                  description: ONID email of an employee
+                  example: 'doej@oregonstate.edu'
             address:
               type: object
               properties:
                 streetLine1:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: Street line 1 the address
                 streetLine2:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: Street line 2 the address
                 city:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: City name of the address
+                  example: Corvallis
                 stateCode:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: State code of the address
+                  example: OR
                 nationCode:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: Nation code of the address
                 zip:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: Zip code of the address
+                  example: '97330-3460'
             telephone:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Telephone number of an employee
+              example: '5411234567'
             status:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
-            ecls:
+              description: Employee status
+              example: A
+            employeeClass:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Employee class
+              example: CA
             positionNumber:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Position number of an employee
+              example: C99999
             jobTitle:
               type: string
-              description: Internal ID of an employee
-              example: '1234'
+              description: Job title of an employee
+              example: Analyst Programmer
             timesheetOrganization:
               type: object
               properties:
                 code:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: Organization code of the employee's timesheet organization
+                  example: '888888'
                 description:
                   type: string
-                  description: Internal ID of an employee
-                  example: '1234'
+                  description: Organization description of the employee's timesheet organization
+                  example: 'JIS - Enterprise Computing Services'
     EmployeeResult:
       type: object
       properties:

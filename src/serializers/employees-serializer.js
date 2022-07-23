@@ -45,7 +45,7 @@ const serializeEmployee = (rawRow) => {
     },
     telephone: rawArray[18] || null,
     status: rawArray[19] || null,
-    ecls: rawArray[20] || null,
+    employeeClass: rawArray[20] || null,
     positionNumber: rawArray[21] || null,
     jobTitle: rawArray[22] || null,
     timesheetOrganization: {
