@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { errorHandler, errorBuilder } from 'errors/errors';
 
-import { getEmployeeById } from '../../../db/oracledb/servicenow-dao';
+import { getEmployeeById, patchEmployeeById } from '../../../db/oracledb/servicenow-dao';
 import { serializeEmployee } from '../../../serializers/employees-serializer';
 
 /**
@@ -40,4 +40,26 @@ const get = async (req, res) => {
   }
 };
 
-export { get };
+/**
+ * Patch employee
+ *
+ * @type {RequestHandler}
+ */
+const patch = async (req, res) => {
+  try {
+    const {
+      params: { osuId },
+      body,
+    } = req;
+    const lines = await patchEmployeeById(osuId, body);
+    const result = serializeEmployee(lines);
+    return res.send(result);
+  } catch (err) {
+    if (err.statusCode) {
+      return buildErrors(res, err);
+    }
+    return errorHandler(res, err);
+  }
+};
+
+export { get, patch };

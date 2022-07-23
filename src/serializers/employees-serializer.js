@@ -1,5 +1,6 @@
 import { Serializer as JsonApiSerializer } from 'jsonapi-serializer';
 import _ from 'lodash';
+import moment from 'moment';
 
 import { serializerOptions } from 'utils/jsonapi';
 import { openapi } from 'utils/load-openapi';
@@ -10,6 +11,26 @@ const employeeResourceType = employeeResourceProp.type.enum[0];
 const employeeResourceKeys = _.keys(employeeResourceProp.attributes.properties);
 const employeeResourcePath = 'servicenow/employees';
 const employeeResourceUrl = resourcePathLink(apiBaseUrl, employeeResourcePath);
+
+const formatDate = (rawDate) => {
+  const splittedDate = _.split(rawDate, '-');
+  const monthFormatDict = {
+    JAN: '01',
+    FEB: '02',
+    MAR: '03',
+    APR: '04',
+    MAY: '05',
+    JUN: '06',
+    JUL: '07',
+    AUG: '08',
+    SEP: '09',
+    OCT: '10',
+    NOV: '11',
+    DEC: '12',
+  };
+  const year = moment(splittedDate[2], 'YY').format('YYYY');
+  return `${year}-${monthFormatDict[splittedDate[1]]}-${splittedDate[0]}`;
+};
 
 /**
  * Serialize employeeResource to JSON API
@@ -27,7 +48,7 @@ const serializeEmployee = (rawRow) => {
     firsName: rawArray[3] || null,
     middleName: rawArray[4] || null,
     ssn: rawArray[5] || null,
-    birthDate: rawArray[6] || null,
+    birthDate: formatDate(rawArray[6]) || null,
     sex: rawArray[7] || null,
     citizenship: rawArray[8] || null,
     legalName: rawArray[9] || null,
