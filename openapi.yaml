@@ -302,8 +302,8 @@ components:
             birthDate:
               type: string
               format: date
-              description: The date this address record was last modified.
-              example: '08-JUL-70'
+              description: The date this address record was last modified. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
             sex:
               type: string
               description: Gender of an employee. M - Male, F - Female, N - Unknown.
@@ -319,11 +319,6 @@ components:
             emails:
               type: object
               properties:
-                personalEmail:
-                  type: string
-                  format: email
-                  description: Personal email of an employee
-                  example: 'john.doe@gmail.com'
                 employeeEmail:
                   type: string
                   format: email
@@ -423,63 +418,77 @@ components:
                   type: string
                   description: Last name of an employee
                   example: Doe
+                  nullable: true
                 middleName:
                   type: string
                   description: Middle name of an employee
                   example: Jackson
-                firsName:
+                  nullable: true
+                firstName:
                   type: string
                   description: First name of an employee
                   example: Jon
+                  nullable: false
                 address:
                   type: object
                   properties:
                     streetLine1:
                       type: string
                       description: Street line 1 the address
+                      nullable: true
                     streetLine2:
                       type: string
                       description: Street line 2 the address
+                      nullable: true
                     city:
                       type: string
                       description: City name of the address
                       example: Corvallis
+                      nullable: true
                     stateCode:
                       type: string
                       description: State code of the address
                       example: OR
+                      nullable: true
                     nationCode:
                       type: string
                       description: Nation code of the address
+                      nullable: true
                     zip:
                       type: string
                       description: Zip code of the address
                       example: '97330-3460'
+                      nullable: true
                 ssn:
                   type: string
                   description: Social security number of an employee
                   example: '123456789'
+                  nullable: true
                 birthDate:
                   type: string
                   format: date
-                  description: The date this address record was last modified.
-                  example: '08-JUL-70'
+                  description: The date this address record was last modified. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                  nullable: true
                 sex:
                   type: string
                   description: Gender of an employee. M - Male, F - Female, N - Unknown.
                   enum: [M, F, N]
+                  nullable: true
                 citizenship:
                   type: string
                   description: Citizenship code of an employee
                   example: C
+                  nullable: true
                 emails:
                   type: object
                   properties:
-                    personalEmail:
+                    employeeEmail:
                       type: string
                       format: email
-                      description: Personal email of an employee
-                      example: 'john.doe@gmail.com'
+                      description: Employee email of an employee
+                      example: 'john.doe@oregonstate.com'
+                      nullable: true
     ErrorObject:
       properties:
         status:

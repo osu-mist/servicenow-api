@@ -88,4 +88,67 @@ const getEmployeeById = async (osuId) => {
   }
 };
 
-export { getCommonMatching, getEmployeeById };
+/**
+ * Update and return the employee result
+ *
+ * @param {object} osuId OSU ID
+ * @param {object} body Employee update body
+ * @returns {Promise<object>[]} Promise object represents the employee result
+ */
+const patchEmployeeById = async (osuId, body) => {
+  const { data: { id, attributes } } = body;
+  const connection = await getConnection();
+  try {
+    if (osuId !== id) {
+      throw createError(409, 'OSU ID in path does not match the ID in body.');
+    }
+
+    console.log({
+      osuId,
+      lastName: attributes.lastName,
+      firstName: attributes.firstName,
+      middleName: attributes.middleName,
+      streetLine1: attributes.address.streetLine1,
+      streetLine2: attributes.address.streetLine2,
+      city: attributes.address.city,
+      stateCode: attributes.address.stateCode,
+      zip: attributes.address.zip,
+      nationCode: attributes.address.nationCode,
+      ssn: attributes.ssn,
+      birthDate: attributes.birthDate,
+      sex: attributes.sex,
+      citizenship: attributes.citizenship,
+      employeeEmail: attributes.emails.employeeEmail,
+    });
+    await connection.execute(contrib.patchEmployeeById(), {
+      osuId,
+      lastName: attributes.lastName,
+      firstName: attributes.firstName,
+      middleName: attributes.middleName,
+      streetLine1: attributes.address.streetLine1,
+      streetLine2: attributes.address.streetLine2,
+      city: attributes.address.city,
+      stateCode: attributes.address.stateCode,
+      zip: attributes.address.zip,
+      nationCode: attributes.address.nationCode,
+      ssn: attributes.ssn,
+      birthDate: attributes.birthDate,
+      sex: attributes.sex,
+      citizenship: attributes.citizenship,
+      employeeEmail: attributes.emails.employeeEmail,
+    });
+    const lines = await getLine(connection, []);
+
+    // The 26th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 25);
+    if (errorString) {
+      throw createError(400, errorString);
+    }
+
+    return lines;
+  } finally {
+    connection.close();
+  }
+};
+
+export { getCommonMatching, getEmployeeById, patchEmployeeById };
