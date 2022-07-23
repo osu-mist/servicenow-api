@@ -126,6 +126,33 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/employees:
+    post:
+      summary: Create an employee
+      tags:
+        - employees
+      description: Create an employee
+      operationId: postEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePostBody'
+        description: Post body for an employee
+        required: true
+      responses:
+        '201':
+          description: Successfully create an employee data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
   /servicenow/employees/{osuId}:
     get:
       summary: Get employee by ID
@@ -149,10 +176,10 @@ paths:
         '500':
           $ref: '#/components/responses/500'
     patch:
-      summary: Patch employee by ID
+      summary: Update employee by ID
       tags:
         - employees
-      description: Patch employee by ID
+      description: Update employee by ID
       operationId: patchEmployeeById
       parameters:
         - $ref: '#/components/parameters/osuId'
@@ -161,7 +188,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EmployeePatchBody'
-        description: patch body for an employee
+        description: Patch body for an employee
         required: true
       responses:
         '200':
@@ -391,6 +418,98 @@ components:
           $ref: '#/components/schemas/SelfLink'
         data:
           $ref: '#/components/schemas/EmployeeResource'
+    EmployeePostBody:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+          additionalProperties: false
+          properties:
+            type:
+              $ref: '#/components/schemas/EmployeeType'
+            attributes:
+              type: object
+              additionalProperties: false
+              properties:
+                lastName:
+                  type: string
+                  description: Last name of an employee
+                  example: Doe
+                  nullable: true
+                middleName:
+                  type: string
+                  description: Middle name of an employee
+                  example: Jackson
+                  nullable: true
+                firstName:
+                  type: string
+                  description: First name of an employee
+                  example: Jon
+                  nullable: false
+                address:
+                  type: object
+                  properties:
+                    streetLine1:
+                      type: string
+                      description: Street line 1 the address
+                      nullable: true
+                    streetLine2:
+                      type: string
+                      description: Street line 2 the address
+                      nullable: true
+                    city:
+                      type: string
+                      description: City name of the address
+                      example: Corvallis
+                      nullable: true
+                    stateCode:
+                      type: string
+                      description: State code of the address
+                      example: OR
+                      nullable: true
+                    nationCode:
+                      type: string
+                      description: Nation code of the address
+                      nullable: true
+                    zip:
+                      type: string
+                      description: Zip code of the address
+                      example: '97330-3460'
+                      nullable: true
+                ssn:
+                  type: string
+                  description: Social security number of an employee
+                  example: '123456789'
+                  nullable: true
+                birthDate:
+                  type: string
+                  format: date
+                  description: The date this address record was last modified. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                  nullable: true
+                sex:
+                  type: string
+                  description: Gender of an employee. M - Male, F - Female, N - Unknown.
+                  enum: [M, F, N]
+                  nullable: true
+                citizenship:
+                  type: string
+                  description: Citizenship code of an employee
+                  example: C
+                  nullable: true
+                emails:
+                  type: object
+                  properties:
+                    employeeEmail:
+                      type: string
+                      format: email
+                      description: Employee email of an employee
+                      example: 'john.doe@oregonstate.com'
+                      nullable: true
     EmployeePatchBody:
       type: object
       required:
