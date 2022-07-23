@@ -126,6 +126,33 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/employees:
+    post:
+      summary: Create an employee
+      tags:
+        - employees
+      description: Create an employee
+      operationId: postEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePostBody'
+        description: Post body for an employee
+        required: true
+      responses:
+        '201':
+          description: Successfully create an employee data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
   /servicenow/employees/{osuId}:
     get:
       summary: Get employee by ID
@@ -149,10 +176,10 @@ paths:
         '500':
           $ref: '#/components/responses/500'
     patch:
-      summary: Patch employee by ID
+      summary: Update employee by ID
       tags:
         - employees
-      description: Patch employee by ID
+      description: Update employee by ID
       operationId: patchEmployeeById
       parameters:
         - $ref: '#/components/parameters/osuId'
@@ -161,7 +188,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EmployeePatchBody'
-        description: patch body for an employee
+        description: Patch body for an employee
         required: true
       responses:
         '200':
@@ -391,7 +418,7 @@ components:
           $ref: '#/components/schemas/SelfLink'
         data:
           $ref: '#/components/schemas/EmployeeResource'
-    EmployeePatchBody:
+    EmployeePostBody:
       type: object
       required:
         - data
@@ -399,18 +426,12 @@ components:
         data:
           type: object
           required:
-            - id
             - type
           additionalProperties: false
           properties:
-            id:
-              type: string
-              description: OSU ID of a person
-              example: '123456789'
-              pattern: ^\d{9}$
             type:
               $ref: '#/components/schemas/EmployeeType'
-            attributes:
+            attributes: &EmployeeAttributesPacket
               type: object
               additionalProperties: false
               properties:
@@ -489,6 +510,26 @@ components:
                       description: Employee email of an employee
                       example: 'john.doe@oregonstate.com'
                       nullable: true
+    EmployeePatchBody:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+              description: OSU ID of a person
+              example: '123456789'
+              pattern: ^\d{9}$
+            type:
+              $ref: '#/components/schemas/EmployeeType'
+            attributes: *EmployeeAttributesPacket
     ErrorObject:
       properties:
         status:

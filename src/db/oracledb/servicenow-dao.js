@@ -134,4 +134,54 @@ const patchEmployeeById = async (osuId, body) => {
   }
 };
 
-export { getCommonMatching, getEmployeeById, patchEmployeeById };
+/**
+ * Create and return the employee result
+ *
+ * @param {object} body Employee create body
+ * @returns {Promise<object>[]} Promise object represents the employee result
+ */
+const postEmployee = async (body) => {
+  const { data: { attributes } } = body;
+  const connection = await getConnection();
+  try {
+    await connection.execute(contrib.postEmployee(), {
+      osuId: null,
+      lastName: attributes.lastName,
+      firstName: attributes.firstName,
+      middleName: attributes.middleName,
+      streetLine1: attributes.address.streetLine1,
+      streetLine2: attributes.address.streetLine2,
+      city: attributes.address.city,
+      stateCode: attributes.address.stateCode,
+      zip: attributes.address.zip,
+      nationCode: attributes.address.nationCode,
+      ssn: attributes.ssn,
+      birthDate: attributes.birthDate,
+      sex: attributes.sex,
+      citizenship: attributes.citizenship,
+      employeeEmail: attributes.emails.employeeEmail,
+    });
+    const lines = await getLine(connection, []);
+
+    // The 26th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 25);
+    if (errorString) {
+      if (errorString.match(/^Common Matching has determined that OSU_ID: \d{9} already exists$/)) {
+        throw createError(409, errorString);
+      } else {
+        throw createError(400, errorString);
+      }
+    }
+
+    return lines;
+  } finally {
+    connection.close();
+  }
+};
+
+export {
+  getCommonMatching,
+  getEmployeeById,
+  patchEmployeeById,
+  postEmployee,
+};
