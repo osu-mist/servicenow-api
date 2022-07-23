@@ -103,23 +103,6 @@ const patchEmployeeById = async (osuId, body) => {
       throw createError(409, 'OSU ID in path does not match the ID in body.');
     }
 
-    console.log({
-      osuId,
-      lastName: attributes.lastName,
-      firstName: attributes.firstName,
-      middleName: attributes.middleName,
-      streetLine1: attributes.address.streetLine1,
-      streetLine2: attributes.address.streetLine2,
-      city: attributes.address.city,
-      stateCode: attributes.address.stateCode,
-      zip: attributes.address.zip,
-      nationCode: attributes.address.nationCode,
-      ssn: attributes.ssn,
-      birthDate: attributes.birthDate,
-      sex: attributes.sex,
-      citizenship: attributes.citizenship,
-      employeeEmail: attributes.emails.employeeEmail,
-    });
     await connection.execute(contrib.patchEmployeeById(), {
       osuId,
       lastName: attributes.lastName,
