@@ -148,6 +148,36 @@ paths:
           $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
+    patch:
+      summary: Patch employee by ID
+      tags:
+        - employees
+      description: Patch employee by ID
+      operationId: patchEmployeeById
+      parameters:
+        - $ref: '#/components/parameters/osuId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePatchBody'
+        description: patch body for an employee
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
 components:
   parameters:
     osuId:
@@ -289,6 +319,11 @@ components:
             emails:
               type: object
               properties:
+                personalEmail:
+                  type: string
+                  format: email
+                  description: Personal email of an employee
+                  example: 'john.doe@gmail.com'
                 employeeEmail:
                   type: string
                   format: email
@@ -361,6 +396,90 @@ components:
           $ref: '#/components/schemas/SelfLink'
         data:
           $ref: '#/components/schemas/EmployeeResource'
+    EmployeePatchBody:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - id
+            - type
+          additionalProperties: false
+          properties:
+            id:
+              type: string
+              description: OSU ID of a person
+              example: '123456789'
+              pattern: ^\d{9}$
+            type:
+              $ref: '#/components/schemas/EmployeeType'
+            attributes:
+              type: object
+              additionalProperties: false
+              properties:
+                lastName:
+                  type: string
+                  description: Last name of an employee
+                  example: Doe
+                middleName:
+                  type: string
+                  description: Middle name of an employee
+                  example: Jackson
+                firsName:
+                  type: string
+                  description: First name of an employee
+                  example: Jon
+                address:
+                  type: object
+                  properties:
+                    streetLine1:
+                      type: string
+                      description: Street line 1 the address
+                    streetLine2:
+                      type: string
+                      description: Street line 2 the address
+                    city:
+                      type: string
+                      description: City name of the address
+                      example: Corvallis
+                    stateCode:
+                      type: string
+                      description: State code of the address
+                      example: OR
+                    nationCode:
+                      type: string
+                      description: Nation code of the address
+                    zip:
+                      type: string
+                      description: Zip code of the address
+                      example: '97330-3460'
+                ssn:
+                  type: string
+                  description: Social security number of an employee
+                  example: '123456789'
+                birthDate:
+                  type: string
+                  format: date
+                  description: The date this address record was last modified.
+                  example: '08-JUL-70'
+                sex:
+                  type: string
+                  description: Gender of an employee. M - Male, F - Female, N - Unknown.
+                  enum: [M, F, N]
+                citizenship:
+                  type: string
+                  description: Citizenship code of an employee
+                  example: C
+                emails:
+                  type: object
+                  properties:
+                    personalEmail:
+                      type: string
+                      format: email
+                      description: Personal email of an employee
+                      example: 'john.doe@gmail.com'
     ErrorObject:
       properties:
         status:
