@@ -126,7 +126,38 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/employees/{osuId}:
+    get:
+      summary: Get employee by ID
+      tags:
+        - employees
+      description: Get employee by ID
+      operationId: getEmployeeById
+      parameters:
+        - $ref: '#/components/parameters/osuId'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
 components:
+  parameters:
+    osuId:
+      name: osuId
+      in: path
+      required: true
+      description: OSU ID of a person
+      schema:
+        type: string
+        pattern: ^\d{9}$
   securitySchemes:
     OAuth2:
       type: oauth2
@@ -161,6 +192,12 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResult'
   schemas:
+    CommonMatchingType:
+      type: string
+      enum: [common-matching]
+    EmployeeType:
+      type: string
+      enum: [employee]
     SelfLink:
       properties:
         self:
@@ -173,9 +210,7 @@ components:
           type: string
           description: A unique ID of common matching result
         type:
-          type: string
-          enum:
-            - common-matching
+          $ref: '#/components/schemas/CommonMatchingType'
         links:
           $ref: '#/components/schemas/SelfLink'
         attributes:
@@ -201,6 +236,131 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CommonMatchingResource'
+    EmployeeResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OSU ID of a employee
+          pattern: ^\d{9}$
+        type:
+          $ref: '#/components/schemas/EmployeeType'
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        attributes:
+          properties:
+            pidm:
+              type: string
+              description: Internal ID of an employee
+              example: '1234'
+            lastName:
+              type: string
+              description: Last name of an employee
+              example: Doe
+            middleName:
+              type: string
+              description: Middle name of an employee
+              example: Jackson
+            firsName:
+              type: string
+              description: First name of an employee
+              example: Jon
+            ssn:
+              type: string
+              description: Social security number of an employee
+              example: '123456789'
+            birthDate:
+              type: string
+              format: date
+              description: The date this address record was last modified.
+              example: '08-JUL-70'
+            sex:
+              type: string
+              description: Gender of an employee. M - Male, F - Female, N - Unknown.
+              enum: [M, F, N]
+            citizenship:
+              type: string
+              description: Citizenship code of an employee
+              example: C
+            legalName:
+              type: string
+              description: Legal name of an employee
+              example: Jon Jackson Doe
+            emails:
+              type: object
+              properties:
+                employeeEmail:
+                  type: string
+                  format: email
+                  description: Employee email of an employee
+                  example: 'john.doe@oregonstate.edu'
+                onidEmail:
+                  type: string
+                  format: email
+                  description: ONID email of an employee
+                  example: 'doej@oregonstate.edu'
+            address:
+              type: object
+              properties:
+                streetLine1:
+                  type: string
+                  description: Street line 1 the address
+                streetLine2:
+                  type: string
+                  description: Street line 2 the address
+                city:
+                  type: string
+                  description: City name of the address
+                  example: Corvallis
+                stateCode:
+                  type: string
+                  description: State code of the address
+                  example: OR
+                nationCode:
+                  type: string
+                  description: Nation code of the address
+                zip:
+                  type: string
+                  description: Zip code of the address
+                  example: '97330-3460'
+            telephone:
+              type: string
+              description: Telephone number of an employee
+              example: '5411234567'
+            status:
+              type: string
+              description: Employee status
+              example: A
+            employeeClass:
+              type: string
+              description: Employee class
+              example: CA
+            positionNumber:
+              type: string
+              description: Position number of an employee
+              example: C99999
+            jobTitle:
+              type: string
+              description: Job title of an employee
+              example: Analyst Programmer
+            timesheetOrganization:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Organization code of the employee's timesheet organization
+                  example: '888888'
+                description:
+                  type: string
+                  description: Organization description of the employee's timesheet organization
+                  example: 'JIS - Enterprise Computing Services'
+    EmployeeResult:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        data:
+          $ref: '#/components/schemas/EmployeeResource'
     ErrorObject:
       properties:
         status:
