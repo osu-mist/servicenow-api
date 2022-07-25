@@ -498,8 +498,14 @@ components:
                   nullable: true
                 citizenship:
                   type: string
-                  description: Citizenship code of an employee
-                  example: C
+                  description: |
+                    Citizenship code of an employee.
+                      FN - Foreign National
+                      N	- Non Resident Alien
+                      R	- Resident Alien
+                      S	- Substantial Presence Alien
+                      C	- Citizen
+                  enum: [FN, N, R, S, C]
                   nullable: true
                 emails:
                   type: object
