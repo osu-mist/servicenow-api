@@ -30,7 +30,7 @@ const post = async (req, res) => {
     const { body } = req;
     const lines = await postEmployee(body);
     const result = serializeEmployee(lines);
-    return res.send(result);
+    return res.status(201).send(result);
   } catch (err) {
     if (err.statusCode) {
       return buildErrors(res, err);
