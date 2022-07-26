@@ -7,6 +7,27 @@ import { parseQuery } from 'utils/parse-query';
 import { getConnection } from './connection';
 import { contrib } from './contrib/contrib';
 
+// const convertDate = (formattedDate) => {
+//   const splittedDate = _.split(formattedDate, '-');
+//   const monthFormatDict = {
+//     '01': 'JAN',
+//     '02': 'FEB',
+//     '03': 'MAR',
+//     '04': 'APR',
+//     '05': 'MAY',
+//     '06': 'JUN',
+//     '07': 'JUL',
+//     '08': 'AUG',
+//     '09': 'SEP',
+//     10: 'OCT',
+//     11: 'NOV',
+//     12: 'DEC',
+//   };
+//   return `${splittedDate[1]}-${monthFormatDict[splittedDate[]]}-${
+//     splittedDate[0]
+//   }`;
+// };
+
 /**
  * A Helper recursive function to read buffer
  *
