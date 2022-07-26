@@ -376,10 +376,11 @@ components:
                 nationCode:
                   type: string
                   description: Nation code of the address
+                  example: US
                 zip:
                   type: string
                   description: Zip code of the address
-                  example: '97330-3460'
+                  example: '97330'
             telephone:
               type: string
               description: Telephone number of an employee
@@ -475,6 +476,9 @@ components:
                       type: string
                       description: Nation code of the address
                       nullable: true
+                      example: US
+                      minLength: 1
+                      maxLength: 3
                     zip:
                       type: string
                       description: Zip code of the address
