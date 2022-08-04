@@ -119,6 +119,11 @@ const patchEmployeeById = async (osuId, body) => {
       sex: attributes.sex,
       citizenship: attributes.citizenship,
       employeeEmail: attributes.emails.employeeEmail,
+      homeOrganizationCode: attributes.homeOrganization.code,
+      employeeClass: attributes.employeeClass,
+      telephone: attributes.telephone,
+      appointmentDate: attributes.appointmentDate,
+      legalName: attributes.legalName,
     });
     const lines = await getLine(connection, []);
 
