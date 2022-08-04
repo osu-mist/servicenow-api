@@ -76,8 +76,8 @@ const getEmployeeById = async (osuId) => {
     await connection.execute(contrib.getEmployeeById(), { osuId });
     const lines = await getLine(connection, []);
 
-    // The 26th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 25);
+    // The 33th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 32);
     if (errorString) {
       throw createError(400, errorString);
     }

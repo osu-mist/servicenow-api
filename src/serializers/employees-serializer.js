@@ -48,6 +48,11 @@ const serializeEmployee = (rawRow) => {
     firsName: rawArray[3] || null,
     middleName: rawArray[4] || null,
     ssn: rawArray[5] || null,
+    firstHireDate: formatDate(rawArray[23]) || null,
+    currentHireDate: formatDate(rawArray[24]) || null,
+    adjustedServiceDate: formatDate(rawArray[25]) || null,
+    seniorityDate: formatDate(rawArray[26]) || null,
+    firstWorkDate: formatDate(rawArray[27]) || null,
     birthDate: formatDate(rawArray[6]) || null,
     sex: rawArray[7] || null,
     citizenship: rawArray[8] || null,
@@ -67,11 +72,15 @@ const serializeEmployee = (rawRow) => {
     telephone: rawArray[18] || null,
     status: rawArray[19] || null,
     employeeClass: rawArray[20] || null,
-    positionNumber: rawArray[21] || null,
-    jobTitle: rawArray[22] || null,
+    positionNumber: rawArray[28] || null,
+    jobTitle: rawArray[29] || null,
     timesheetOrganization: {
-      code: rawArray[23] || null,
-      description: rawArray[24] || null,
+      code: rawArray[30] || null,
+      description: rawArray[31] || null,
+    },
+    homeOrganization: {
+      code: rawArray[21] || null,
+      description: rawArray[22] || null,
     },
   };
 

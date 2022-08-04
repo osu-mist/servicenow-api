@@ -326,10 +326,35 @@ components:
               type: string
               description: Social security number of an employee
               example: '123456789'
+            firstHireDate:
+              type: string
+              format: date
+              description: The date this employee was first hired. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            currentHireDate:
+              type: string
+              format: date
+              description: The date this employee was currently hired. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            adjustedServiceDate:
+              type: string
+              format: date
+              description: The date this employee service adjusted. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            seniorityDate:
+              type: string
+              format: date
+              description: The seniority date of the employee. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            firstWorkDate:
+              type: string
+              format: date
+              description: The date this employee first worked. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
             birthDate:
               type: string
               format: date
-              description: The date this address record was last modified. Format is 'YYYY-MM-DD'.
+              description: The date this employee was last modified. Format is 'YYYY-MM-DD'.
               example: '1970-07-08'
             sex:
               type: string
@@ -411,6 +436,17 @@ components:
                 description:
                   type: string
                   description: Organization description of the employee's timesheet organization
+                  example: 'JIS - Enterprise Computing Services'
+            homeOrganization:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Organization code of the employee's home organization
+                  example: '888888'
+                description:
+                  type: string
+                  description: Organization description of the employee's home organization
                   example: 'JIS - Enterprise Computing Services'
     EmployeeResult:
       type: object
