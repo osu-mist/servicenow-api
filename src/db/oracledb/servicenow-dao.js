@@ -122,8 +122,8 @@ const patchEmployeeById = async (osuId, body) => {
     });
     const lines = await getLine(connection, []);
 
-    // The 26th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 25);
+    // The 33th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 32);
     if (errorString) {
       throw createError(400, errorString);
     }
@@ -160,11 +160,16 @@ const postEmployee = async (body) => {
       sex: attributes.sex,
       citizenship: attributes.citizenship,
       employeeEmail: attributes.emails.employeeEmail,
+      homeOrganizationCode: attributes.homeOrganization.code,
+      employeeClass: attributes.employeeClass,
+      telephone: attributes.telephone,
+      appointmentDate: attributes.appointmentDate,
+      legalName: attributes.legalName,
     });
     const lines = await getLine(connection, []);
 
-    // The 26th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 25);
+    // The 33th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 32);
     if (errorString) {
       if (errorString.match(/^Common Matching has determined that OSU_ID: \d{9} already exists$/)) {
         throw createError(409, errorString);
