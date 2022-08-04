@@ -326,10 +326,35 @@ components:
               type: string
               description: Social security number of an employee
               example: '123456789'
+            firstHireDate:
+              type: string
+              format: date
+              description: The date this employee was first hired. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            currentHireDate:
+              type: string
+              format: date
+              description: The date this employee was currently hired. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            adjustedServiceDate:
+              type: string
+              format: date
+              description: The date this employee service adjusted. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            seniorityDate:
+              type: string
+              format: date
+              description: The seniority date of the employee. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
+            firstWorkDate:
+              type: string
+              format: date
+              description: The date this employee first worked. Format is 'YYYY-MM-DD'.
+              example: '1970-07-08'
             birthDate:
               type: string
               format: date
-              description: The date this address record was last modified. Format is 'YYYY-MM-DD'.
+              description: The date this employee was last modified. Format is 'YYYY-MM-DD'.
               example: '1970-07-08'
             sex:
               type: string
@@ -412,6 +437,17 @@ components:
                   type: string
                   description: Organization description of the employee's timesheet organization
                   example: 'JIS - Enterprise Computing Services'
+            homeOrganization:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Organization code of the employee's home organization
+                  example: '888888'
+                description:
+                  type: string
+                  description: Organization description of the employee's home organization
+                  example: 'JIS - Enterprise Computing Services'
     EmployeeResult:
       type: object
       properties:
@@ -451,6 +487,11 @@ components:
                   description: First name of an employee
                   example: Jon
                   nullable: false
+                legalName:
+                  type: string
+                  description: Legal name of an employee
+                  example: Doe Jackson Jon
+                  nullable: true
                 address:
                   type: object
                   properties:
@@ -489,12 +530,23 @@ components:
                   description: Social security number of an employee
                   example: '123456789'
                   nullable: true
+                appointmentDate:
+                  type: string
+                  format: date
+                  description: The appointment date of the employee. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                  nullable: false
                 birthDate:
                   type: string
                   format: date
-                  description: The date this address record was last modified. Format is 'YYYY-MM-DD'.
+                  description: The date this employee was last modified. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
                   nullable: true
+                telephone:
+                  type: string
+                  description: Telephone number of an employee
+                  example: '5411234567'
+                  nullable: false
                 sex:
                   type: string
                   description: Gender of an employee. M - Male, F - Female, N - Unknown.
@@ -519,6 +571,19 @@ components:
                       format: email
                       description: Employee email of an employee
                       example: 'john.doe@oregonstate.com'
+                      nullable: true
+                employeeClass:
+                  type: string
+                  description: Employee class
+                  example: CA
+                  nullable: true
+                homeOrganization:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: Organization code of the employee's home organization
+                      example: '888888'
                       nullable: true
     EmployeePatchBody:
       type: object
