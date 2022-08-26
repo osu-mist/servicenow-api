@@ -19,6 +19,22 @@ security:
   - OAuth2:
       - full
 paths:
+  /servicenow/colleges:
+    get:
+      summary: Get colleges
+      tags:
+        - colleges
+      description: Get college results
+      operationId: getColleges
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollegeSetResult'
+        '500':
+          $ref: '#/components/responses/500'
   /servicenow/common-matching:
     get:
       summary: Get common matching routine results
@@ -249,6 +265,9 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResult'
   schemas:
+    CollegeType:
+      type: string
+      enum: [college]
     CommonMatchingType:
       type: string
       enum: [common-matching]
@@ -261,6 +280,34 @@ components:
           type: string
           format: uri
           description: Self-link of current resource
+    CollegeResource:
+      properties:
+        id:
+          type: string
+          description: A unique ID of college
+        type:
+          $ref: '#/components/schemas/CollegeType'
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        attributes:
+          properties:
+            code:
+              type: string
+              description: College code
+              example: '123456'
+            description:
+              type: string
+              description: College description
+              example: Oregon State University
+    CollegeSetResult:
+      properties:
+        links:
+          allOf:
+            - $ref: '#/components/schemas/SelfLink'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollegeResource'
     CommonMatchingResource:
       properties:
         id:

@@ -44,6 +44,21 @@ const parseErrorString = (lines, errorPosition) => {
 };
 
 /**
+ * Return the colleges result
+ *
+ * @returns {Promise<object>[]} Promise object represents the colleges result
+ */
+const getColleges = async () => {
+  const connection = await getConnection();
+  try {
+    const rawColleges = await connection.execute(contrib.getColleges());
+    return rawColleges.rows;
+  } finally {
+    connection.close();
+  }
+};
+
+/**
  * Return the common matching result
  *
  * @param {object} query Query parameters
@@ -190,6 +205,7 @@ const postEmployee = async (body) => {
 };
 
 export {
+  getColleges,
   getCommonMatching,
   getEmployeeById,
   patchEmployeeById,

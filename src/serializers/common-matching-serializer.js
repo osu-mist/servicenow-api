@@ -49,7 +49,7 @@ const serializeCommonMatching = (rawRow, req) => {
   return new JsonApiSerializer(
     commonMatchingResourceType,
     serializerOptions(serializerArgs),
-  ).serialize(rawCommonMatching);
+  ).serialize([rawCommonMatching]);
 };
 
 export { serializeCommonMatching };
