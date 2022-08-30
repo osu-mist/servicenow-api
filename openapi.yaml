@@ -299,6 +299,26 @@ components:
               type: string
               description: College description
               example: Oregon State University
+            admissionCode:
+              type: string
+              description: Required admissions request code associated with source/background institution
+              example: '1234'
+            city:
+              type: string
+              description: The city associated with source/background institution
+              example: Corvallis
+            state:
+              type: string
+              description: The state associated with source/background institution
+              example: Oregon
+            country:
+              type: string
+              description: The country associated with source/background institution
+              example: United States of America
+            zip:
+              type: string
+              description: The zip code associated with source/background institution
+              example: 12345-6789
     CollegeSetResult:
       properties:
         links:
