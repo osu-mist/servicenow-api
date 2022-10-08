@@ -1,6 +1,11 @@
 import _ from 'lodash';
 import createError from 'http-errors';
-import { BIND_OUT, NUMBER, STRING, DB_TYPE_VARCHAR } from 'oracledb';
+import {
+  BIND_OUT,
+  NUMBER,
+  STRING,
+  DB_TYPE_VARCHAR,
+} from 'oracledb';
 
 import { parseQuery } from 'utils/parse-query';
 
