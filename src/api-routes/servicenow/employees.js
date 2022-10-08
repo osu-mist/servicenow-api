@@ -21,7 +21,7 @@ const buildErrors = (res, err) => {
 };
 
 /**
- * Get common matching results
+ * Create employee
  *
  * @type {RequestHandler}
  */

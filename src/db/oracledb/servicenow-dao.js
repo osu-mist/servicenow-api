@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import createError from 'http-errors';
-import { BIND_OUT, NUMBER, STRING } from 'oracledb';
+import { BIND_OUT, NUMBER, STRING, DB_TYPE_VARCHAR } from 'oracledb';
 
 import { parseQuery } from 'utils/parse-query';
 
@@ -204,10 +204,55 @@ const postEmployee = async (body) => {
   }
 };
 
+/**
+ * Create and return the job result
+ *
+ * @param {object} body Job create body
+ * @returns {Promise<object>[]} Promise object represents the job result
+ */
+const postJob = async (body) => {
+  const { data: { attributes } } = body;
+  const connection = await getConnection();
+  try {
+    const {
+      outBinds: { result },
+    } = await connection.execute(contrib.postJob(), {
+      osuId: attributes.osuId,
+      approvalEffectiveDate: attributes.approvalEffectiveDate,
+      positionNumber: attributes.positionNumber,
+      suffix: attributes.suffix,
+      status: attributes.status,
+      eclsCode: attributes.eclsCode,
+      jobDescription: attributes.jobDescription,
+      jblnDescription: attributes.jblnDescription,
+      appointmentPercent: attributes.appointmentPercent,
+      factor: attributes.factor,
+      pays: attributes.pays,
+      hoursPay: attributes.hoursPay,
+      rate: attributes.rate,
+      fte: attributes.fte,
+      supervisorPositionNumber: attributes.supervisor.positionNumber,
+      supervisorSuffix: attributes.supervisor.suffix,
+      jobEffectiveDate: attributes.jobEffectiveDate,
+      personnelChangeDate: attributes.personnelChangeDate,
+      result: { type: DB_TYPE_VARCHAR, dir: BIND_OUT },
+    });
+
+    if (_.startsWith(result, '**ERROR**')) {
+      throw createError(400, result);
+    }
+
+    return result;
+  } finally {
+    connection.close();
+  }
+};
+
 export {
   getColleges,
   getCommonMatching,
   getEmployeeById,
   patchEmployeeById,
   postEmployee,
+  postJob,
 };

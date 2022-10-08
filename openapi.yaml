@@ -221,6 +221,32 @@ paths:
           $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/jobs:
+    post:
+      summary: Create job
+      tags:
+        - jobs
+      description: Create job
+      operationId: postJob
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobPostBody'
+        description: Post body for an job
+        required: true
+      responses:
+        '202':
+          description: The backend data source needs to do additional processing with the
+            new job record. Job record accepted but not yet created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
 components:
   parameters:
     osuId:
@@ -274,6 +300,9 @@ components:
     EmployeeType:
       type: string
       enum: [employee]
+    JobType:
+      type: string
+      enum: [job]
     SelfLink:
       properties:
         self:
@@ -672,6 +701,127 @@ components:
             type:
               $ref: '#/components/schemas/EmployeeType'
             attributes: *EmployeeAttributesPacket
+    JobResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique EPAF transaction number
+        type:
+          $ref: '#/components/schemas/JobType'
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        attributes:
+          properties:
+            epafTransactionNumber:
+              type: string
+              description: A unique EPAF transaction number
+              example: '1234'
+    JobResult:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        data:
+          $ref: '#/components/schemas/EmployeeResource'
+    JobPostBody:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+          additionalProperties: false
+          properties:
+            type:
+              $ref: '#/components/schemas/JobType'
+            attributes:
+              type: object
+              additionalProperties: false
+              properties:
+                osuId:
+                  type: string
+                  description: OSU ID of an employee
+                  example: '123456789'
+                approvalEffectiveDate:
+                  type: string
+                  format: date
+                  description: The Date that the approval transaction record becomes effective. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                positionNumber:
+                  type: string
+                  description: The job position number
+                  example: 'C12345'
+                suffix:
+                  type: string
+                  description: The job suffix
+                  example: '00'
+                status:
+                  type: string
+                  description: The job status
+                  example: 'A'
+                eclsCode:
+                  type: string
+                  description: Employee class security code
+                  example: 'TS'
+                jobDescription:
+                  type: string
+                  description: Job description
+                  example: Temp Bio Science Research Tech 1
+                jblnDescription:
+                  type: string
+                  description: Job location description
+                  example: California
+                appointmentPercent:
+                  type: integer
+                  description: Job appointment percent
+                  example: 100
+                factor:
+                  type: integer
+                  description: Job factor
+                  example: 12
+                pays:
+                  type: integer
+                  description: Job pays
+                  example: 12
+                hoursPay:
+                  type: number
+                  format: float
+                  description: Job hours pay
+                  example: 173.33
+                rate:
+                  type: number
+                  format: float
+                  description: Job rate
+                  example: 17.43
+                fte:
+                  type: number
+                  format: float
+                  description: Job FTE
+                  example: 1.0
+                supervisor:
+                  type: object
+                  properties:
+                    positionNumber:
+                      type: string
+                      description: The supervisor's job position number
+                      example: 'C12345'
+                    suffix:
+                      type: string
+                      description: The supervisor's job suffix
+                      example: '00'
+                jobEffectiveDate:
+                  type: string
+                  format: date
+                  description: Date that the Job Assignment record becomes effective. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                personnelChangeDate:
+                  type: string
+                  format: date
+                  description: Date the change was actually made as opposed to the effective date which is for payroll purposes. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
     ErrorObject:
       properties:
         status:
