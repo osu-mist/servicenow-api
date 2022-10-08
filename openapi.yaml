@@ -745,6 +745,7 @@ components:
                   type: string
                   description: OSU ID of an employee
                   example: '123456789'
+                  pattern: ^\d{9}$
                 approvalEffectiveDate:
                   type: string
                   format: date
