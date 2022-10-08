@@ -723,7 +723,7 @@ components:
         links:
           $ref: '#/components/schemas/SelfLink'
         data:
-          $ref: '#/components/schemas/EmployeeResource'
+          $ref: '#/components/schemas/JobResource'
     JobPostBody:
       type: object
       required:
