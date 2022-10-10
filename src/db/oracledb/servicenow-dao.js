@@ -247,6 +247,7 @@ const postJob = async (body) => {
       throw createError(400, result);
     }
 
+    await connection.commit();
     return result;
   } finally {
     connection.close();
