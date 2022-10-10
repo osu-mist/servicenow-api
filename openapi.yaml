@@ -740,6 +740,10 @@ components:
             attributes:
               type: object
               additionalProperties: false
+              required:
+                - osuId
+                - positionNumber
+                - suffix
               properties:
                 osuId:
                   type: string
@@ -761,6 +765,7 @@ components:
                   type: string
                   description: The job suffix
                   example: '00'
+                  nullable: false
                 status:
                   type: string
                   description: The job status
