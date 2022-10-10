@@ -744,6 +744,7 @@ components:
                 - osuId
                 - positionNumber
                 - suffix
+                - approvalEffectiveDate
               properties:
                 osuId:
                   type: string
@@ -756,6 +757,7 @@ components:
                   format: date
                   description: The Date that the approval transaction record becomes effective. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
+                  nullable: false
                 positionNumber:
                   type: string
                   description: The job position number
