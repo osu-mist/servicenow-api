@@ -746,6 +746,7 @@ components:
                   description: OSU ID of an employee
                   example: '123456789'
                   pattern: ^\d{9}$
+                  nullable: false
                 approvalEffectiveDate:
                   type: string
                   format: date
@@ -755,6 +756,7 @@ components:
                   type: string
                   description: The job position number
                   example: 'C12345'
+                  nullable: false
                 suffix:
                   type: string
                   description: The job suffix

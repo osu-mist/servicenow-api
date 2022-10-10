@@ -23,6 +23,18 @@ const buildErrors = (res, err) => {
 const post = async (req, res) => {
   try {
     const { body } = req;
+    const { data: { attributes } } = body;
+
+    const requiredFieldsMissedErrors = [];
+    _.forEach(['osuId', 'positionNumber', 'suffix'], (attribute) => {
+      if (!attributes[attribute]) {
+        requiredFieldsMissedErrors.push(`${attribute} in request body could not be empty.`);
+      }
+    });
+    if (!_.isEmpty(requiredFieldsMissedErrors)) {
+      return errorBuilder(res, 400, requiredFieldsMissedErrors);
+    }
+
     const rawJob = await postJob(body);
     const result = serializeJob(rawJob);
     return res.status(202).send(result);
