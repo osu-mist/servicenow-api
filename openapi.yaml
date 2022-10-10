@@ -740,25 +740,27 @@ components:
             attributes:
               type: object
               additionalProperties: false
+              required:
+                - osuId
+                - positionNumber
+                - suffix
               properties:
                 osuId:
                   type: string
                   description: OSU ID of an employee
                   example: '123456789'
                   pattern: ^\d{9}$
-                approvalEffectiveDate:
-                  type: string
-                  format: date
-                  description: The Date that the approval transaction record becomes effective. Format is 'YYYY-MM-DD'.
-                  example: '1970-07-08'
+                  nullable: false
                 positionNumber:
                   type: string
                   description: The job position number
                   example: 'C12345'
+                  nullable: false
                 suffix:
                   type: string
                   description: The job suffix
                   example: '00'
+                  nullable: false
                 status:
                   type: string
                   description: The job status
