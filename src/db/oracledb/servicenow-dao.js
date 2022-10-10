@@ -223,7 +223,6 @@ const postJob = async (body) => {
       outBinds: { result },
     } = await connection.execute(contrib.postJob(), {
       osuId: attributes.osuId,
-      approvalEffectiveDate: attributes.approvalEffectiveDate,
       positionNumber: attributes.positionNumber,
       suffix: attributes.suffix,
       status: attributes.status,

@@ -744,19 +744,12 @@ components:
                 - osuId
                 - positionNumber
                 - suffix
-                - approvalEffectiveDate
               properties:
                 osuId:
                   type: string
                   description: OSU ID of an employee
                   example: '123456789'
                   pattern: ^\d{9}$
-                  nullable: false
-                approvalEffectiveDate:
-                  type: string
-                  format: date
-                  description: The Date that the approval transaction record becomes effective. Format is 'YYYY-MM-DD'.
-                  example: '1970-07-08'
                   nullable: false
                 positionNumber:
                   type: string
