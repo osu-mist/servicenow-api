@@ -236,9 +236,9 @@ const postJob = async (body) => {
       rate: attributes.rate,
       fte: attributes.fte,
       supervisorPositionNumber: attributes.supervisor.positionNumber,
-      supervisorSuffix: attributes.supervisor.suffix,
       jobEffectiveDate: attributes.jobEffectiveDate,
       personnelChangeDate: attributes.personnelChangeDate,
+      laborDistribution: attributes.laborDistribution,
       result: { type: DB_TYPE_VARCHAR, dir: BIND_OUT },
     });
 
