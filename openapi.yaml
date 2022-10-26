@@ -846,9 +846,6 @@ components:
                   format: date
                   description: Date the change was actually made as opposed to the effective date which is for payroll purposes. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
-                laborDistribution:
-                  type: string
-                  description: Labor distribution
     ErrorObject:
       properties:
         status:
