@@ -167,6 +167,17 @@ const patchEmployeeById = async (osuId, body) => {
  */
 const postEmployee = async (body) => {
   const { data: { attributes } } = body;
+
+  const priorColleges = _.reduce(attributes.priorColleges, (result, priorCollege) => {
+    result.priorColleges.push({
+      sbgi_code: priorCollege.institutionCode,
+      degr_code: priorCollege.degreeCode,
+      degr_seq_no: priorCollege.degreeSeqNo,
+      degr_date: priorCollege.degreeDate,
+    });
+    return result;
+  }, { priorColleges: [] });
+
   const connection = await getConnection();
   try {
     await connection.execute(contrib.postEmployee(), {
@@ -190,6 +201,7 @@ const postEmployee = async (body) => {
       telephone: attributes.telephone,
       appointmentDate: attributes.appointmentDate,
       legalName: attributes.legalName,
+      priorColleges: JSON.stringify(priorColleges),
     });
     const lines = await getLine(connection, []);
 
