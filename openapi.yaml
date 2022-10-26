@@ -681,6 +681,28 @@ components:
                       description: Organization code of the employee's home organization
                       example: '888888'
                       nullable: true
+                priorColleges:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      institutionCode:
+                        type: string
+                        description: Institution code
+                        example: '800122'
+                      degreeCode:
+                        type: string
+                        description: Degree code
+                        example: BS
+                      degreeSeqNo:
+                        type: string
+                        description: Degree sequence number
+                        example: '1'
+                        pattern: '^\d*$'
+                      degreeDate:
+                        type: string
+                        description: Degree date. Format is 'YYYY-MM-DD'.
+                        example: '1970-07-08'
     EmployeePatchBody:
       type: object
       required:
@@ -811,10 +833,6 @@ components:
                       type: string
                       description: The supervisor's job position number
                       example: 'C12345'
-                    suffix:
-                      type: string
-                      description: The supervisor's job suffix
-                      example: '00'
                 jobEffectiveDate:
                   type: string
                   format: date
@@ -825,6 +843,9 @@ components:
                   format: date
                   description: Date the change was actually made as opposed to the effective date which is for payroll purposes. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
+                laborDistribution:
+                  type: string
+                  description: Labor distribution
     ErrorObject:
       properties:
         status:
