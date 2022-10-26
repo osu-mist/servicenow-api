@@ -564,145 +564,148 @@ components:
           properties:
             type:
               $ref: '#/components/schemas/EmployeeType'
-            attributes: &EmployeeAttributesPacket
-              type: object
-              additionalProperties: false
-              properties:
-                lastName:
-                  type: string
-                  description: Last name of an employee
-                  example: Doe
-                  nullable: true
-                middleName:
-                  type: string
-                  description: Middle name of an employee
-                  example: Jackson
-                  nullable: true
-                firstName:
-                  type: string
-                  description: First name of an employee
-                  example: Jon
-                  nullable: false
-                legalName:
-                  type: string
-                  description: Legal name of an employee
-                  example: Doe Jackson Jon
-                  nullable: true
-                address:
+            attributes:
+              allOf:
+                - &EmployeeAttributesPacket
                   type: object
                   properties:
-                    streetLine1:
+                    lastName:
                       type: string
-                      description: Street line 1 the address
+                      description: Last name of an employee
+                      example: Doe
                       nullable: true
-                    streetLine2:
+                    middleName:
                       type: string
-                      description: Street line 2 the address
+                      description: Middle name of an employee
+                      example: Jackson
                       nullable: true
-                    city:
+                    firstName:
                       type: string
-                      description: City name of the address
-                      example: Corvallis
-                      nullable: true
-                    stateCode:
+                      description: First name of an employee
+                      example: Jon
+                      nullable: false
+                    legalName:
                       type: string
-                      description: State code of the address
-                      example: OR
+                      description: Legal name of an employee
+                      example: Doe Jackson Jon
                       nullable: true
-                    nationCode:
+                    address:
+                      type: object
+                      properties:
+                        streetLine1:
+                          type: string
+                          description: Street line 1 the address
+                          nullable: true
+                        streetLine2:
+                          type: string
+                          description: Street line 2 the address
+                          nullable: true
+                        city:
+                          type: string
+                          description: City name of the address
+                          example: Corvallis
+                          nullable: true
+                        stateCode:
+                          type: string
+                          description: State code of the address
+                          example: OR
+                          nullable: true
+                        nationCode:
+                          type: string
+                          description: Nation code of the address
+                          nullable: true
+                          example: US
+                          minLength: 1
+                          maxLength: 3
+                        zip:
+                          type: string
+                          description: Zip code of the address
+                          example: '97330-3460'
+                          nullable: true
+                    ssn:
                       type: string
-                      description: Nation code of the address
+                      description: Social security number of an employee
+                      example: '123456789'
                       nullable: true
-                      example: US
-                      minLength: 1
-                      maxLength: 3
-                    zip:
+                    appointmentDate:
                       type: string
-                      description: Zip code of the address
-                      example: '97330-3460'
+                      format: date
+                      description: The appointment date of the employee. Format is 'YYYY-MM-DD'.
+                      example: '1970-07-08'
+                      nullable: false
+                    birthDate:
+                      type: string
+                      format: date
+                      description: The date this employee was last modified. Format is 'YYYY-MM-DD'.
+                      example: '1970-07-08'
                       nullable: true
-                ssn:
-                  type: string
-                  description: Social security number of an employee
-                  example: '123456789'
-                  nullable: true
-                appointmentDate:
-                  type: string
-                  format: date
-                  description: The appointment date of the employee. Format is 'YYYY-MM-DD'.
-                  example: '1970-07-08'
-                  nullable: false
-                birthDate:
-                  type: string
-                  format: date
-                  description: The date this employee was last modified. Format is 'YYYY-MM-DD'.
-                  example: '1970-07-08'
-                  nullable: true
-                telephone:
-                  type: string
-                  description: Telephone number of an employee
-                  example: '5411234567'
-                  nullable: false
-                sex:
-                  type: string
-                  description: Gender of an employee. M - Male, F - Female, N - Unknown.
-                  enum: [M, F, N]
-                  nullable: true
-                citizenship:
-                  type: string
-                  description: |
-                    Citizenship code of an employee.
-                      FN - Foreign National
-                      N	- Non Resident Alien
-                      R	- Resident Alien
-                      S	- Substantial Presence Alien
-                      C	- Citizen
-                  enum: [FN, N, R, S, C]
-                  nullable: true
-                emails:
-                  type: object
+                    telephone:
+                      type: string
+                      description: Telephone number of an employee
+                      example: '5411234567'
+                      nullable: false
+                    sex:
+                      type: string
+                      description: Gender of an employee. M - Male, F - Female, N - Unknown.
+                      enum: [M, F, N]
+                      nullable: true
+                    citizenship:
+                      type: string
+                      description: |
+                        Citizenship code of an employee.
+                          FN - Foreign National
+                          N	- Non Resident Alien
+                          R	- Resident Alien
+                          S	- Substantial Presence Alien
+                          C	- Citizen
+                      enum: [FN, N, R, S, C]
+                      nullable: true
+                    emails:
+                      type: object
+                      properties:
+                        employeeEmail:
+                          type: string
+                          format: email
+                          description: Employee email of an employee
+                          example: 'john.doe@oregonstate.com'
+                          nullable: true
+                    employeeClass:
+                      type: string
+                      description: Employee class
+                      example: CA
+                      nullable: true
+                    homeOrganization:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: Organization code of the employee's home organization
+                          example: '888888'
+                          nullable: true
+                - type: object
                   properties:
-                    employeeEmail:
-                      type: string
-                      format: email
-                      description: Employee email of an employee
-                      example: 'john.doe@oregonstate.com'
-                      nullable: true
-                employeeClass:
-                  type: string
-                  description: Employee class
-                  example: CA
-                  nullable: true
-                homeOrganization:
-                  type: object
-                  properties:
-                    code:
-                      type: string
-                      description: Organization code of the employee's home organization
-                      example: '888888'
-                      nullable: true
-                priorColleges:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      institutionCode:
-                        type: string
-                        description: Institution code
-                        example: '800122'
-                      degreeCode:
-                        type: string
-                        description: Degree code
-                        example: BS
-                      degreeSeqNo:
-                        type: string
-                        description: Degree sequence number
-                        example: '1'
-                        pattern: '^\d*$'
-                      degreeDate:
-                        type: string
-                        description: Degree date. Format is 'YYYY-MM-DD'.
-                        example: '1970-07-08'
+                    priorColleges:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          institutionCode:
+                            type: string
+                            description: Institution code
+                            example: '800122'
+                          degreeCode:
+                            type: string
+                            description: Degree code
+                            example: BS
+                          degreeSeqNo:
+                            type: string
+                            description: Degree sequence number
+                            example: '1'
+                            pattern: '^\d*$'
+                          degreeDate:
+                            type: string
+                            description: Degree date. Format is 'YYYY-MM-DD'.
+                            example: '1970-07-08'
     EmployeePatchBody:
       type: object
       required:
