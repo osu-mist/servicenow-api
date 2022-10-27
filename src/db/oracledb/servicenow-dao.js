@@ -117,6 +117,21 @@ const getEmployeeById = async (osuId) => {
  */
 const patchEmployeeById = async (osuId, body) => {
   const { data: { id, attributes } } = body;
+
+  const priorColleges = _.reduce(
+    attributes.priorColleges,
+    (result, priorCollege) => {
+      result.priorColleges.push({
+        sbgi_code: priorCollege.institutionCode,
+        degr_code: priorCollege.degreeCode,
+        degr_seq_no: priorCollege.degreeSeqNo,
+        degr_date: priorCollege.degreeDate,
+      });
+      return result;
+    },
+    { priorColleges: [] },
+  );
+
   const connection = await getConnection();
   try {
     if (osuId !== id) {
@@ -144,6 +159,7 @@ const patchEmployeeById = async (osuId, body) => {
       telephone: attributes.telephone,
       appointmentDate: attributes.appointmentDate,
       legalName: attributes.legalName,
+      priorColleges: JSON.stringify(priorColleges),
     });
     const lines = await getLine(connection, []);
 
