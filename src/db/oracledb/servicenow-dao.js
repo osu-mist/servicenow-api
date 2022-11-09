@@ -245,6 +245,22 @@ const postEmployee = async (body) => {
  */
 const postJob = async (body) => {
   const { data: { attributes } } = body;
+
+  const laborDistribution = _.reduce(
+    attributes.laborDistribution,
+    (result, item) => {
+      result.records.push({
+        u_account_code: item.accountCode,
+        u_job: item.serviceNowRecordId,
+        u_labor: item.laborPercent,
+        u_activity_code: item.activityCode,
+        u_index: item.index,
+      });
+      return result;
+    },
+    { records: [] },
+  );
+
   const connection = await getConnection();
   try {
     const {
@@ -259,14 +275,14 @@ const postJob = async (body) => {
       jblnDescription: attributes.jblnDescription,
       appointmentPercent: attributes.appointmentPercent,
       factor: attributes.factor,
-      pays: attributes.pays,
       hoursPay: attributes.hoursPay,
       rate: attributes.rate,
       fte: attributes.fte,
       supervisorPositionNumber: attributes.supervisor.positionNumber,
-      supervisorSuffix: attributes.supervisor.suffix,
       jobEffectiveDate: attributes.jobEffectiveDate,
       personnelChangeDate: attributes.personnelChangeDate,
+      salaryStep: attributes.salaryStep,
+      laborDistribution: JSON.stringify(laborDistribution),
       result: { type: DB_TYPE_VARCHAR, dir: BIND_OUT },
     });
 

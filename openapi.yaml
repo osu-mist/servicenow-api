@@ -807,10 +807,6 @@ components:
                   type: integer
                   description: Job factor
                   example: 12
-                pays:
-                  type: integer
-                  description: Job pays
-                  example: 12
                 hoursPay:
                   type: number
                   format: float
@@ -843,6 +839,36 @@ components:
                   format: date
                   description: Date the change was actually made as opposed to the effective date which is for payroll purposes. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
+                salaryStep:
+                  type: integer
+                  description: Salary step
+                  example: 1
+                laborDistribution:
+                  description: Labor distribution
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      accountCode:
+                        type: string
+                        description: Account code
+                        example: '10013'
+                      activityCode:
+                        type: string
+                        description: Activity code
+                        example: '10013'
+                      index:
+                        type: string
+                        description: Index
+                        example: ENG007
+                      serviceNowRecordId:
+                        type: string
+                        description: ServiceNow record ID
+                        example: abcdxyz
+                      laborPercent:
+                        type: string
+                        description: Labor
+                        example: '50'
     ErrorObject:
       properties:
         status:
