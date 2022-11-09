@@ -117,6 +117,21 @@ const getEmployeeById = async (osuId) => {
  */
 const patchEmployeeById = async (osuId, body) => {
   const { data: { id, attributes } } = body;
+
+  const priorColleges = _.reduce(
+    attributes.priorColleges,
+    (result, priorCollege) => {
+      result.priorColleges.push({
+        sbgi_code: priorCollege.institutionCode,
+        degr_code: priorCollege.degreeCode,
+        degr_seq_no: priorCollege.degreeSeqNo,
+        degr_date: priorCollege.degreeDate,
+      });
+      return result;
+    },
+    { priorColleges: [] },
+  );
+
   const connection = await getConnection();
   try {
     if (osuId !== id) {
@@ -144,6 +159,7 @@ const patchEmployeeById = async (osuId, body) => {
       telephone: attributes.telephone,
       appointmentDate: attributes.appointmentDate,
       legalName: attributes.legalName,
+      priorColleges: JSON.stringify(priorColleges),
     });
     const lines = await getLine(connection, []);
 
@@ -167,6 +183,17 @@ const patchEmployeeById = async (osuId, body) => {
  */
 const postEmployee = async (body) => {
   const { data: { attributes } } = body;
+
+  const priorColleges = _.reduce(attributes.priorColleges, (result, priorCollege) => {
+    result.priorColleges.push({
+      sbgi_code: priorCollege.institutionCode,
+      degr_code: priorCollege.degreeCode,
+      degr_seq_no: priorCollege.degreeSeqNo,
+      degr_date: priorCollege.degreeDate,
+    });
+    return result;
+  }, { priorColleges: [] });
+
   const connection = await getConnection();
   try {
     await connection.execute(contrib.postEmployee(), {
@@ -190,6 +217,7 @@ const postEmployee = async (body) => {
       telephone: attributes.telephone,
       appointmentDate: attributes.appointmentDate,
       legalName: attributes.legalName,
+      priorColleges: JSON.stringify(priorColleges),
     });
     const lines = await getLine(connection, []);
 
@@ -217,6 +245,22 @@ const postEmployee = async (body) => {
  */
 const postJob = async (body) => {
   const { data: { attributes } } = body;
+
+  const laborDistribution = _.reduce(
+    attributes.laborDistribution,
+    (result, item) => {
+      result.records.push({
+        u_account_code: item.accountCode,
+        u_job: item.serviceNowRecordId,
+        u_labor: item.laborPercent,
+        u_activity_code: item.activityCode,
+        u_index: item.index,
+      });
+      return result;
+    },
+    { records: [] },
+  );
+
   const connection = await getConnection();
   try {
     const {
@@ -231,14 +275,14 @@ const postJob = async (body) => {
       jblnDescription: attributes.jblnDescription,
       appointmentPercent: attributes.appointmentPercent,
       factor: attributes.factor,
-      pays: attributes.pays,
       hoursPay: attributes.hoursPay,
       rate: attributes.rate,
       fte: attributes.fte,
       supervisorPositionNumber: attributes.supervisor.positionNumber,
       jobEffectiveDate: attributes.jobEffectiveDate,
       personnelChangeDate: attributes.personnelChangeDate,
-      laborDistribution: attributes.laborDistribution,
+      salaryStep: attributes.salaryStep,
+      laborDistribution: JSON.stringify(laborDistribution),
       result: { type: DB_TYPE_VARCHAR, dir: BIND_OUT },
     });
 
