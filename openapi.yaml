@@ -582,7 +582,7 @@ components:
                   type: string
                   description: First name of an employee
                   example: Jon
-                  nullable: false
+                  nullable: true
                 legalName:
                   type: string
                   description: Legal name of an employee
@@ -631,7 +631,7 @@ components:
                   format: date
                   description: The appointment date of the employee. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
-                  nullable: false
+                  nullable: true
                 birthDate:
                   type: string
                   format: date
@@ -642,7 +642,7 @@ components:
                   type: string
                   description: Telephone number of an employee
                   example: '5411234567'
-                  nullable: false
+                  nullable: true
                 sex:
                   type: string
                   description: Gender of an employee. M - Male, F - Female, N - Unknown.
