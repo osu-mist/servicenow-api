@@ -566,7 +566,6 @@ components:
               $ref: '#/components/schemas/EmployeeType'
             attributes: &EmployeeAttributesPacket
               type: object
-              additionalProperties: false
               properties:
                 lastName:
                   type: string
@@ -722,7 +721,95 @@ components:
               pattern: ^\d{9}$
             type:
               $ref: '#/components/schemas/EmployeeType'
-            attributes: *EmployeeAttributesPacket
+            attributes:
+              allOf:
+                - *EmployeeAttributesPacket
+                - properties:
+                    i9:
+                      type: object
+                      properties:
+                        date:
+                          type: string
+                          format: date
+                          description: The date immigration information was received. Format is 'YYYY-MM-DD'.
+                          example: '1970-07-08'
+                        expireDate:
+                          type: string
+                          format: date
+                          description: The date the immigration information expires. Format is 'YYYY-MM-DD'.
+                          example: '1970-07-08'
+                          nullable: true
+                        formInd:
+                          type: string
+                          description: |
+                            Indicates whether or not immigration information has been received.
+                            Valid values are: R - Received, N - Not received, T - Temporary, E - Exempt, null - None.
+                          nullable: true
+                          enum: ['R', 'N', 'T', 'E']
+                    w4:
+                      type: object
+                      properties:
+                        irsOptCode1:
+                          type: string
+                          description: The first option code for the IRS benefit/deduction code.
+                          example: 'M'
+                        irsOptCode4:
+                          type: string
+                          description: The fourth option code for the IRS benefit/deduction code.
+                          example: '1'
+                        irsAmount1:
+                          type: integer
+                          description: The first amount field for the IRS benefit/deduction.
+                          example: 500
+                        irsAmount2:
+                          type: integer
+                          description: The second amount field for the IRS benefit/deduction.
+                          example: 4500
+                        irsAmount3:
+                          type: integer
+                          description: The third amount field for the IRS benefit/deduction.
+                          example: 0
+                        irsAmount4:
+                          type: integer
+                          description: The fourth amount field for the IRS benefit/deduction.
+                          example: 0
+                        irsAmount5:
+                          type: integer
+                          description: The fifth amount field for the IRS benefit/deduction.
+                          example: 4000
+                        irsAmount6:
+                          type: integer
+                          description: The sixth amount field for the IRS benefit/deduction.
+                          example: 500
+                        irsEffectiveDate:
+                          type: string
+                          description: The date the IRS benefit/deduction becomes effective. Format is 'YYYY-MM-DD'.
+                          example: '1970-07-08'
+                        irsStatus:
+                          type: string
+                          description: The status of the IRS benefit/deduction.
+                          example: 'A'
+                        orOptCode1:
+                          type: string
+                          description: The first option code for the OR benefit/deduction code.
+                          example: 'S'
+                        orOptCode2:
+                          type: string
+                          description: The second option code for the OR benefit/deduction code.
+                          example: '0'
+                        orAmount1:
+                          type: integer
+                          description: The first option code for the OR benefit/deduction code.
+                          example: 500
+                        orEffectiveDate:
+                          type: string
+                          description: The date the OR benefit/deduction becomes effective. Format is 'YYYY-MM-DD'.
+                          example: '1970-07-08'
+                        orStatus:
+                          type: string
+                          description: The status of the OR benefit/deduction.
+                          example: 'W'
+
     JobResource:
       type: object
       properties:
