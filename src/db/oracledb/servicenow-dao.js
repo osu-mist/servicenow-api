@@ -154,7 +154,7 @@ const patchEmployeeById = async (osuId, body) => {
       sex: attributes.sex,
       citizenship: attributes.citizenship,
       employeeEmail: attributes.emails.employeeEmail,
-      homeOrganizationCode: attributes.homeOrganization.code,
+      homeOrganizationCode: attributes.homeOrganization ? attributes.homeOrganization.code : null,
       employeeClass: attributes.employeeClass,
       telephone: attributes.telephone,
       appointmentDate: attributes.appointmentDate,
