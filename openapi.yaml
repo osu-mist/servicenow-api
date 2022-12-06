@@ -956,6 +956,30 @@ components:
                         type: string
                         description: Labor
                         example: '50'
+                baseJobBeginDate:
+                  type: string
+                  format: date
+                  description: Date the base job begins. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                baseJobEndDate:
+                  type: string
+                  format: date
+                  description: Date the base job ends. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                encumbranceBeginDate:
+                  type: string
+                  format: date
+                  description: ServiceNow encumbrance begin date. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                encumbranceEndDate:
+                  type: string
+                  format: date
+                  description: ServiceNow encumbrance end date. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                flsaExemptInd:
+                  type: boolean
+                  description: FLSA exempt indicator
+                  nullable: true
     ErrorObject:
       properties:
         status:
