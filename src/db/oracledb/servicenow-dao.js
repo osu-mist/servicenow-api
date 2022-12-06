@@ -281,6 +281,11 @@ const postJob = async (body) => {
     { records: [] },
   );
 
+  let flsaExemptInd = null;
+  if (attributes.flsaExemptInd !== undefined && attributes.flsaExemptInd !== null) {
+    flsaExemptInd = attributes.flsaExemptInd ? 'Y' : 'N';
+  }
+
   const connection = await getConnection();
   try {
     const {
@@ -303,6 +308,11 @@ const postJob = async (body) => {
       personnelChangeDate: attributes.personnelChangeDate,
       salaryStep: attributes.salaryStep,
       laborDistribution: JSON.stringify(laborDistribution),
+      baseJobBeginDate: attributes.baseJobBeginDate,
+      baseJobEndDate: attributes.baseJobEndDate,
+      encumbranceBeginDate: attributes.encumbranceBeginDate,
+      encumbranceEndDate: attributes.encumbranceEndDate,
+      flsaExemptInd,
       result: { type: DB_TYPE_VARCHAR, dir: BIND_OUT },
     });
 
