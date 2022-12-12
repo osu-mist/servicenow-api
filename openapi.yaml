@@ -984,6 +984,11 @@ components:
                   type: boolean
                   description: FLSA exempt indicator
                   nullable: true
+                competencyLevel:
+                  type: string
+                  description: IT competency level
+                  example: '1'
+                  nullable: true
     ErrorObject:
       properties:
         status:
