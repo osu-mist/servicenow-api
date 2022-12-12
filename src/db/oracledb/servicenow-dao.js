@@ -313,6 +313,7 @@ const postJob = async (body) => {
       encumbranceBeginDate: attributes.encumbranceBeginDate,
       encumbranceEndDate: attributes.encumbranceEndDate,
       flsaExemptInd,
+      competencyLevel: attributes.competencyLevel,
       result: { type: DB_TYPE_VARCHAR, dir: BIND_OUT },
     });
 
