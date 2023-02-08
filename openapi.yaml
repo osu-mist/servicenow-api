@@ -44,6 +44,13 @@ paths:
       operationId: getCommonMatching
       parameters:
         - in: query
+          name: filter[osuId]
+          description: OSU ID of person to match
+          required: false
+          schema:
+            type: string
+            pattern: '^\d{9}$'
+        - in: query
           name: filter[lastName]
           description: Last name of person to match
           required: true
