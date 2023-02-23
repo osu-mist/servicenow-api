@@ -96,8 +96,8 @@ const getEmployeeById = async (osuId) => {
     await connection.execute(contrib.getEmployeeById(), { osuId });
     const lines = await getLine(connection, []);
 
-    // The 33th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 32);
+    // The 32th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 31);
     if (errorString) {
       throw createError(400, errorString);
     }
@@ -160,7 +160,9 @@ const patchEmployeeById = async (osuId, body) => {
       employeeClass: attributes.employeeClass,
       telephone: attributes.telephone,
       appointmentDate: attributes.appointmentDate,
-      legalName: attributes.legalName,
+      legalFirstName: attributes.legalFirstName,
+      legalMiddleName: attributes.legalMiddleName,
+      legalLastName: attributes.legalLastName,
       priorColleges: JSON.stringify(priorColleges),
       i9Date: attributes.i9 ? attributes.i9.date : undefined,
       i9ExpireDate: attributes.i9 ? attributes.i9.expireDate : undefined,
@@ -183,8 +185,8 @@ const patchEmployeeById = async (osuId, body) => {
     });
     const lines = await getLine(connection, []);
 
-    // The 33th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 32);
+    // The 32th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 31);
     if (errorString) {
       throw createError(400, errorString);
     }
@@ -236,13 +238,15 @@ const postEmployee = async (body) => {
       employeeClass: attributes.employeeClass,
       telephone: attributes.telephone,
       appointmentDate: attributes.appointmentDate,
-      legalName: attributes.legalName,
+      legalFirstName: attributes.legalFirstName,
+      legalMiddleName: attributes.legalMiddleName,
+      legalLastName: attributes.legalLastName,
       priorColleges: JSON.stringify(priorColleges),
     });
     const lines = await getLine(connection, []);
 
-    // The 33th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 32);
+    // The 32th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 31);
     if (errorString) {
       if (errorString.match(/^Common Matching has determined that OSU_ID: \d{9} already exists$/)) {
         throw createError(409, errorString);

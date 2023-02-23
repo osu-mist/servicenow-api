@@ -589,10 +589,20 @@ components:
                   description: First name of an employee
                   example: Jon
                   nullable: true
-                legalName:
+                legalLastName:
                   type: string
-                  description: Legal name of an employee
-                  example: Doe Jackson Jon
+                  description: Legal last name of an employee
+                  example: Doe
+                  nullable: true
+                legalMiddleName:
+                  type: string
+                  description: Legal middle name of an employee
+                  example: Jackson
+                  nullable: true
+                legalFirstName:
+                  type: string
+                  description: Legal first name of an employee
+                  example: Jon
                   nullable: true
                 address:
                   type: object
