@@ -185,6 +185,10 @@ const patchEmployeeById = async (osuId, body) => {
     });
     const lines = await getLine(connection, []);
 
+    if (lines.includes('insert failed: ORA-')) {
+      throw Error(lines);
+    }
+
     // The 32th item of the splitted array is the error string
     const errorString = parseErrorString(lines, 31);
     if (errorString) {
