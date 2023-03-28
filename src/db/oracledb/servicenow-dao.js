@@ -57,6 +57,8 @@ const getColleges = async () => {
   const connection = await getConnection();
   try {
     const rawColleges = await connection.execute(contrib.getColleges());
+
+    await connection.commit();
     return rawColleges.rows;
   } finally {
     connection.close();
@@ -78,6 +80,8 @@ const getCommonMatching = async (query) => {
       parsedQuery,
     );
     const lines = await getLine(connection, []);
+
+    await connection.commit();
     return lines;
   } finally {
     connection.close();
@@ -102,6 +106,7 @@ const getEmployeeById = async (osuId) => {
       throw createError(400, errorString);
     }
 
+    await connection.commit();
     return lines;
   } finally {
     connection.close();
@@ -195,6 +200,7 @@ const patchEmployeeById = async (osuId, body) => {
       throw createError(400, errorString);
     }
 
+    await connection.commit();
     return lines;
   } finally {
     connection.close();
@@ -263,6 +269,7 @@ const postEmployee = async (body) => {
       }
     }
 
+    await connection.commit();
     return lines;
   } finally {
     connection.close();
