@@ -904,7 +904,8 @@ components:
                   description: Job location description
                   example: California
                 appointmentPercent:
-                  type: integer
+                  type: number
+                  format: float
                   description: Job appointment percent
                   example: 100
                 factor:
