@@ -25,6 +25,9 @@ const getLine = async (connection, lines) => {
     status: { dir: BIND_OUT, type: NUMBER },
   });
   if (outBinds.line) {
+    if (outBinds.line.includes('insert failed: ORA-')) {
+      throw Error(lines);
+    }
     lines.push(outBinds.line);
   }
   // The status code will be equal to 1 if there is no more output
@@ -81,9 +84,7 @@ const getCommonMatching = async (query) => {
     );
     const lines = await getLine(connection, []);
 
-    if (lines[0].includes('insert failed: ORA-')) {
-      throw Error(lines);
-    }
+    console.log(lines);
 
     await connection.commit();
     return lines;
@@ -103,10 +104,6 @@ const getEmployeeById = async (osuId) => {
   try {
     await connection.execute(contrib.getEmployeeById(), { osuId });
     const lines = await getLine(connection, []);
-
-    if (lines[0].includes('insert failed: ORA-')) {
-      throw Error(lines);
-    }
 
     // The 32th item of the splitted array is the error string
     const errorString = parseErrorString(lines, 31);
@@ -198,10 +195,6 @@ const patchEmployeeById = async (osuId, body) => {
     });
     const lines = await getLine(connection, []);
 
-    if (lines[0].includes('insert failed: ORA-')) {
-      throw Error(lines);
-    }
-
     // The 32th item of the splitted array is the error string
     const errorString = parseErrorString(lines, 31);
     if (errorString) {
@@ -262,10 +255,6 @@ const postEmployee = async (body) => {
       priorColleges: JSON.stringify(priorColleges),
     });
     const lines = await getLine(connection, []);
-
-    if (lines[0].includes('insert failed: ORA-')) {
-      throw Error(lines);
-    }
 
     // The 32th item of the splitted array is the error string
     const errorString = parseErrorString(lines, 31);
