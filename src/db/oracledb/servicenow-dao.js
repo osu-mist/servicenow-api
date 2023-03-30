@@ -84,8 +84,6 @@ const getCommonMatching = async (query) => {
     );
     const lines = await getLine(connection, []);
 
-    console.log(lines);
-
     await connection.commit();
     return lines;
   } finally {
