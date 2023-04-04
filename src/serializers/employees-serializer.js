@@ -81,6 +81,7 @@ const serializeEmployee = (rawRow) => {
       code: rawArray[20] || null,
       description: rawArray[21] || null,
     },
+    employeeUpdate: rawArray[31] === 'Y',
   };
 
   const serializerArgs = {

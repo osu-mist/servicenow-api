@@ -551,6 +551,9 @@ components:
                   type: string
                   description: Organization description of the employee's home organization
                   example: 'JIS - Enterprise Computing Services'
+            employeeUpdate:
+              type: boolean
+              description: Indicator whether the employee has been updated
     EmployeeResult:
       type: object
       properties:
