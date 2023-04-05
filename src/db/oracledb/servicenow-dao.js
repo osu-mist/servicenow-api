@@ -190,6 +190,7 @@ const patchEmployeeById = async (osuId, body) => {
       w4OrAmount1: attributes.w4 ? attributes.w4.orAmount1 : undefined,
       w4OrEffectiveDate: attributes.w4 ? attributes.w4.orEffectiveDate : undefined,
       w4OrStatus: attributes.w4 ? attributes.w4.orStatus : undefined,
+      employeeUpdate: attributes.employeeUpdate ? 'Y' : 'N',
     });
     const lines = await getLine(connection, []);
 
