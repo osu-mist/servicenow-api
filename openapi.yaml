@@ -482,6 +482,11 @@ components:
                 onidEmail:
                   type: string
                   format: email
+                  description: ONID primary email of an employee
+                  example: 'doej@oregonstate.edu'
+                onidLogin:
+                  type: string
+                  format: email
                   description: ONID email of an employee
                   example: 'doej@oregonstate.edu'
             address:
