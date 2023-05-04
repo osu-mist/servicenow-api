@@ -1,6 +1,5 @@
 import { Serializer as JsonApiSerializer } from 'jsonapi-serializer';
 import _ from 'lodash';
-import moment from 'moment';
 
 import { serializerOptions } from 'utils/jsonapi';
 import { openapi } from 'utils/load-openapi';
@@ -28,8 +27,7 @@ const formatDate = (rawDate) => {
     NOV: '11',
     DEC: '12',
   };
-  const year = moment(splittedDate[2], 'YY').format('YYYY');
-  return `${year}-${monthFormatDict[splittedDate[1]]}-${splittedDate[0]}`;
+  return `${splittedDate[2]}-${monthFormatDict[splittedDate[1]]}-${splittedDate[0]}`;
 };
 
 /**
