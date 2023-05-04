@@ -103,8 +103,8 @@ const getEmployeeById = async (osuId) => {
     await connection.execute(contrib.getEmployeeById(), { osuId });
     const lines = await getLine(connection, []);
 
-    // The 33th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 32);
+    // The 34th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 33);
     if (errorString) {
       throw createError(400, errorString);
     }
@@ -194,8 +194,8 @@ const patchEmployeeById = async (osuId, body) => {
     });
     const lines = await getLine(connection, []);
 
-    // The 33th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 32);
+    // The 34th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 33);
     if (errorString) {
       throw createError(400, errorString);
     }
@@ -255,8 +255,8 @@ const postEmployee = async (body) => {
     });
     const lines = await getLine(connection, []);
 
-    // The 33th item of the splitted array is the error string
-    const errorString = parseErrorString(lines, 32);
+    // The 34th item of the splitted array is the error string
+    const errorString = parseErrorString(lines, 33);
     if (errorString) {
       if (errorString.match(/^Common Matching has determined that OSU_ID: \d{9} already exists$/)) {
         throw createError(409, errorString);
