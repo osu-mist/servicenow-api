@@ -1017,6 +1017,11 @@ components:
                   description: IT competency level
                   example: '1'
                   nullable: true
+                jobReasonCode:
+                  type: string
+                  description: Job reason code
+                  example: ABCDE
+                  nullable: true
     ErrorObject:
       properties:
         status:

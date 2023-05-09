@@ -303,6 +303,13 @@ const postJob = async (body) => {
 
   const connection = await getConnection();
   try {
+    const { rows } = await connection.execute(contrib.isValidJobReasonCode(), {
+      jobReasonCode: attributes.jobReasonCode,
+    });
+    if (rows[0]['COUNT(*)'] === '0') {
+      throw createError(400, 'Invalid job reason code.');
+    }
+
     const {
       outBinds: { result },
     } = await connection.execute(contrib.postJob(), {
@@ -329,6 +336,7 @@ const postJob = async (body) => {
       encumbranceEndDate: attributes.encumbranceEndDate,
       flsaExemptInd,
       competencyLevel: attributes.competencyLevel,
+      jobReasonCode: attributes.jobReasonCode,
       result: { type: DB_TYPE_VARCHAR, dir: BIND_OUT },
     });
 
