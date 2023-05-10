@@ -303,11 +303,13 @@ const postJob = async (body) => {
 
   const connection = await getConnection();
   try {
-    const { rows } = await connection.execute(contrib.isValidJobReasonCode(), {
-      jobReasonCode: attributes.jobReasonCode,
-    });
-    if (rows[0]['COUNT(*)'] === '0') {
-      throw createError(400, 'Invalid job reason code.');
+    if (attributes.jobReasonCode) {
+      const { rows } = await connection.execute(contrib.isValidJobReasonCode(), {
+        jobReasonCode: attributes.jobReasonCode,
+      });
+      if (rows[0]['COUNT(*)'] === '0') {
+        throw createError(400, 'Invalid job reason code.');
+      }
     }
 
     const {
