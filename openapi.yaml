@@ -255,6 +255,35 @@ paths:
           $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/deductions:
+    post:
+      summary: Create payroll deductions
+      tags:
+        - deductions
+      description: Create payroll deductions
+      operationId: postDeductions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeductionsPostBody'
+        description: Post body for payroll deductions
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeductionsResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
 components:
   parameters:
     osuId:
@@ -311,6 +340,9 @@ components:
     JobType:
       type: string
       enum: [job]
+    DeductionsType:
+      type: string
+      enum: [deductions]
     SelfLink:
       properties:
         self:
@@ -1023,6 +1055,74 @@ components:
                   description: Job reason code
                   example: ABCDE
                   nullable: true
+    DeductionsResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: OSU ID of a employee
+          pattern: ^\d{9}$
+        type:
+          $ref: '#/components/schemas/DeductionsType'
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        attributes:
+          properties:
+            responseMsg:
+              type: string
+              description: A payroll deductions success or failure message.
+              example: SUCCESS
+    DeductionsResult:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        data:
+          $ref: '#/components/schemas/DeductionsResource'
+    DeductionsPostBody:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+          additionalProperties: false
+          properties:
+            type:
+              $ref: '#/components/schemas/DeductionsType'
+            attributes:
+              type: object
+              additionalProperties: false
+              required:
+                - osuId
+                - effectiveDate
+                - position
+                - suffix
+              properties:
+                osuId:
+                  type: string
+                  description: OSU ID of an employee
+                  example: '123456789'
+                  pattern: ^\d{9}$
+                  nullable: false
+                effectiveDate:
+                  type: string
+                  format: date
+                  description: ServiceNow job effective date. Format is 'YYYY-MM-DD'.
+                  example: '1970-07-08'
+                  nullable: false
+                positionNumber:
+                  type: string
+                  description: The job position number
+                  example: 'C12345'
+                  nullable: false
+                suffix:
+                  type: string
+                  description: The job suffix
+                  example: '00'
+                  nullable: false
     ErrorObject:
       properties:
         status:
