@@ -1115,26 +1115,31 @@ components:
               type: object
               additionalProperties: false
               required:
-                - effectiveDate
-                - position
-                - suffix
+                - job
               properties:
-                effectiveDate:
-                  type: string
-                  format: date
-                  description: Deduction effective date. Format is 'YYYY-MM-DD'.
-                  example: '1970-07-08'
-                  nullable: false
-                position:
-                  type: string
-                  description: The job position number
-                  example: 'C12345'
-                  nullable: false
-                suffix:
-                  type: string
-                  description: The job suffix
-                  example: '00'
-                  nullable: false
+                job:
+                  type: object
+                  required:
+                    - startDate
+                    - positionNumber
+                    - suffix
+                  properties:
+                    startDate:
+                      type: string
+                      format: date
+                      description: The job start date. Format is 'YYYY-MM-DD'.
+                      example: '1970-07-08'
+                      nullable: false
+                    positionNumber:
+                      type: string
+                      description: The job position number.
+                      example: 'C12345'
+                      nullable: false
+                    suffix:
+                      type: string
+                      description: The job suffix.
+                      example: '00'
+                      nullable: false
     ErrorObject:
       properties:
         status:
