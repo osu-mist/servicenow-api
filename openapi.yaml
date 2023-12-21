@@ -1069,7 +1069,8 @@ components:
       properties:
         id:
           type: string
-          description: OSU ID, position number, and suffix
+          description: A unique deductions ID
+          example: '123456789-C1234-00'
         type:
           $ref: '#/components/schemas/DeductionsType'
         links:
@@ -1082,7 +1083,7 @@ components:
               items:
                 type: object
                 properties:
-                  deductionCode:
+                  code:
                     type: string
                     description: Deduction code
                     example: 'ABC'
@@ -1114,24 +1115,17 @@ components:
               type: object
               additionalProperties: false
               required:
-                - osuId
                 - effectiveDate
                 - position
                 - suffix
               properties:
-                osuId:
-                  type: string
-                  description: OSU ID of an employee
-                  example: '123456789'
-                  pattern: ^\d{9}$
-                  nullable: false
                 effectiveDate:
                   type: string
                   format: date
                   description: Deduction effective date. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
                   nullable: false
-                positionNumber:
+                position:
                   type: string
                   description: The job position number
                   example: 'C12345'
