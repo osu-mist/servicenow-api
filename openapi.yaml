@@ -229,6 +229,44 @@ paths:
           $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/employees/{osuId}/deductions:
+    post:
+      summary: Create payroll deductions
+      tags:
+        - employees
+      description: Create payroll deductions
+      operationId: postDeductions
+      parameters:
+        - $ref: '#/components/parameters/osuId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeductionsPostBody'
+        description: Post body for payroll deductions
+        required: true
+      responses:
+        '201':
+          description: Successfully created all deductions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeductionsResult'
+        '202':
+          description: Deductions accepted and partially created. An error occured
+            during batch processing and needs to be resolved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeductionsResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
   /servicenow/jobs:
     post:
       summary: Create job
@@ -253,35 +291,6 @@ paths:
                 $ref: '#/components/schemas/JobResult'
         '400':
           $ref: '#/components/responses/400'
-        '500':
-          $ref: '#/components/responses/500'
-  /servicenow/deductions:
-    post:
-      summary: Create payroll deductions
-      tags:
-        - deductions
-      description: Create payroll deductions
-      operationId: postDeductions
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/DeductionsPostBody'
-        description: Post body for payroll deductions
-        required: true
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeductionsResult'
-        '400':
-          $ref: '#/components/responses/400'
-        '404':
-          $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
 components:
@@ -1060,18 +1069,27 @@ components:
       properties:
         id:
           type: string
-          description: OSU ID of a employee
-          pattern: ^\d{9}$
+          description: OSU ID, position number, and suffix
         type:
           $ref: '#/components/schemas/DeductionsType'
         links:
           $ref: '#/components/schemas/SelfLink'
         attributes:
           properties:
-            responseMsg:
-              type: string
-              description: A payroll deductions success or failure message.
-              example: SUCCESS
+            deductions:
+              description: Payroll deductions
+              type: array
+              items:
+                type: object
+                properties:
+                  deductionCode:
+                    type: string
+                    description: Deduction code
+                    example: 'ABC'
+                  status:
+                    type: string
+                    description: Deduction status
+                    example: 'Success'
     DeductionsResult:
       type: object
       properties:
@@ -1110,7 +1128,7 @@ components:
                 effectiveDate:
                   type: string
                   format: date
-                  description: ServiceNow job effective date. Format is 'YYYY-MM-DD'.
+                  description: Deduction effective date. Format is 'YYYY-MM-DD'.
                   example: '1970-07-08'
                   nullable: false
                 positionNumber:
