@@ -229,6 +229,44 @@ paths:
           $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
+  /servicenow/employees/{osuId}/deductions:
+    post:
+      summary: Create payroll deductions
+      tags:
+        - employees
+      description: Create payroll deductions
+      operationId: postDeductions
+      parameters:
+        - $ref: '#/components/parameters/osuId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeductionsPostBody'
+        description: Post body for payroll deductions
+        required: true
+      responses:
+        '201':
+          description: Successfully created all deductions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeductionsResult'
+        '202':
+          description: Deductions accepted and partially created. An error occured
+            during batch processing and needs to be resolved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeductionsResult'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
   /servicenow/jobs:
     post:
       summary: Create job
@@ -311,6 +349,9 @@ components:
     JobType:
       type: string
       enum: [job]
+    DeductionsType:
+      type: string
+      enum: [deductions]
     SelfLink:
       properties:
         self:
@@ -1023,6 +1064,82 @@ components:
                   description: Job reason code
                   example: ABCDE
                   nullable: true
+    DeductionsResource:
+      type: object
+      properties:
+        id:
+          type: string
+          description: A unique deductions ID
+          example: '123456789-C1234-00'
+        type:
+          $ref: '#/components/schemas/DeductionsType'
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        attributes:
+          properties:
+            deductions:
+              description: Payroll deductions
+              type: array
+              items:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    description: Deduction code
+                    example: 'ABC'
+                  status:
+                    type: string
+                    description: Deduction status
+                    example: 'Success'
+    DeductionsResult:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/SelfLink'
+        data:
+          $ref: '#/components/schemas/DeductionsResource'
+    DeductionsPostBody:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+          required:
+            - type
+          additionalProperties: false
+          properties:
+            type:
+              $ref: '#/components/schemas/DeductionsType'
+            attributes:
+              type: object
+              additionalProperties: false
+              required:
+                - job
+              properties:
+                job:
+                  type: object
+                  required:
+                    - startDate
+                    - positionNumber
+                    - suffix
+                  properties:
+                    startDate:
+                      type: string
+                      format: date
+                      description: The job start date. Format is 'YYYY-MM-DD'.
+                      example: '1970-07-08'
+                      nullable: false
+                    positionNumber:
+                      type: string
+                      description: The job position number.
+                      example: 'C12345'
+                      nullable: false
+                    suffix:
+                      type: string
+                      description: The job suffix.
+                      example: '00'
+                      nullable: false
     ErrorObject:
       properties:
         status:
