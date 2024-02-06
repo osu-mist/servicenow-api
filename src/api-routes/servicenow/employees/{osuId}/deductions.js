@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 import { errorHandler, errorBuilder } from 'errors/errors';
-import { postDeductions } from '../../../../db/oracledb/servicenow-dao';
-import { serializeDeductions } from '../../../../serializers/deductions-serializer';
+import { postDeductions } from 'db/oracledb/servicenow-dao';
+import { serializeDeductions } from 'serializers/deductions-serializer';
 
 /**
  * Helper function to build error
