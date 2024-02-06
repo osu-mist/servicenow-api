@@ -353,6 +353,37 @@ const postJob = async (body) => {
   }
 };
 
+/**
+ * Create and return the deductions result
+ *
+ * @param {object} osuId OSU ID
+ * @param {object} body Deductions create body
+ * @returns {Promise<object>[]} Promise object represents the deductions result
+ */
+const postDeductions = async (osuId, body) => {
+  const { data: { attributes } } = body;
+  const connection = await getConnection();
+  try {
+    const {
+      outBinds: { result },
+    } = await connection.execute(contrib.postDeductions(), {
+      osuId,
+      positionNumber: attributes.job.positionNumber,
+      suffix: attributes.job.suffix,
+      startDate: attributes.job.startDate,
+      result: { type: STRING, dir: BIND_OUT, maxSize: 4000 },
+    });
+
+    if (_.startsWith(result, '**NOT FOUND**')) {
+      throw createError(400, result);
+    }
+    await connection.commit();
+    return result;
+  } finally {
+    connection.close();
+  }
+};
+
 export {
   getColleges,
   getCommonMatching,
@@ -360,4 +391,5 @@ export {
   patchEmployeeById,
   postEmployee,
   postJob,
+  postDeductions,
 };
